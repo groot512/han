@@ -1,0 +1,542 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 상표 출원 전까지 색인 차단. 아웃리치 링크로만 접근. 출원 후 이 줄을 지우세요. -->
+<meta name="robots" content="noindex, nofollow">
+<title>테세라 — 서버가 열쇠를 갖지 않는 기업 메신저</title>
+<meta name="description" content="망분리 규제 완화 이후 금융·R&D 조직이 도입할 수 있는 종단간 암호화 협업 메신저. 암복호화는 사용자 기기에서만 이루어집니다.">
+<meta property="og:title" content="테세라 — 서버가 열쇠를 갖지 않는 기업 메신저">
+<meta property="og:description" content="시행세칙 별표7 정보보호통제를 전제로 설계한 종단간 암호화 메신저. PoC 파트너를 모집합니다.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ground:#E5E8E9;
+    --surface:#F5F7F7;
+    --surface-2:#EDF0F1;
+    --ink:#12171A;
+    --ink-2:#59656B;
+    --ink-3:#8C989D;
+    --rule:#C8D0D2;
+    --rule-soft:#D9DFE0;
+    --lapis:#14456E;
+    --lapis-tint:#DFE8EF;
+    --gold:#9C7A2E;
+    --pad:clamp(20px,5vw,64px);
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--ground);color:var(--ink);
+    font-family:"IBM Plex Sans KR",system-ui,-apple-system,sans-serif;
+    font-weight:400;line-height:1.7;letter-spacing:-.01em;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--lapis);color:#fff}
+  a{color:inherit}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+  /* ---------- utility type ---------- */
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-ligatures:none}
+  .eyebrow{
+    font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:500;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--lapis);
+  }
+  .label{
+    font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;
+    letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3);
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky;top:0;z-index:40;background:rgba(229,232,233,.82);
+    backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--rule);
+  }
+  .bar{display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px}
+  .mark{
+    font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:14px;
+    letter-spacing:.42em;text-indent:.42em;text-decoration:none;white-space:nowrap;
+  }
+  .bar .cta-sm{
+    font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.06em;
+    text-decoration:none;border:1px solid var(--ink);padding:7px 15px;
+    transition:background .18s ease,color .18s ease;
+  }
+  .bar .cta-sm:hover{background:var(--ink);color:var(--ground)}
+
+  /* ---------- hero ---------- */
+  .hero{padding-top:clamp(56px,9vw,104px);padding-bottom:clamp(40px,6vw,72px)}
+  h1{
+    font-size:clamp(30px,5.1vw,58px);font-weight:600;line-height:1.18;
+    letter-spacing:-.035em;margin:20px 0 0;max-width:16em;
+  }
+  h1 .soft{font-weight:300;color:var(--ink-2)}
+  .lede{
+    margin:26px 0 0;max-width:46em;font-size:clamp(15px,1.55vw,17.5px);
+    color:var(--ink-2);font-weight:400;
+  }
+  .lede strong{color:var(--ink);font-weight:500}
+  .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;text-decoration:none;
+    font-size:14px;font-weight:500;padding:13px 22px;border:1px solid var(--ink);
+    transition:background .18s ease,color .18s ease,transform .18s ease;
+  }
+  .btn-primary{background:var(--ink);color:var(--ground)}
+  .btn-primary:hover{background:var(--lapis);border-color:var(--lapis)}
+  .btn-ghost:hover{background:var(--ink);color:var(--ground)}
+  .btn:active{transform:translateY(1px)}
+
+  /* ---------- signature: two panels ---------- */
+  .proof{padding-bottom:clamp(56px,8vw,96px)}
+  .proof-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+  .panels{
+    display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.12fr);
+    border:1px solid var(--ink);background:var(--surface);
+  }
+  .panel{padding:0;min-width:0}
+  .panel + .panel{border-left:1px solid var(--ink)}
+  .panel-top{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:11px 16px;border-bottom:1px solid var(--rule);background:var(--surface-2);
+  }
+  .panel-body{padding:20px 16px;min-height:262px}
+
+  /* left: chat */
+  .chat-meta{font-size:11px;color:var(--ink-3);font-family:"IBM Plex Mono",monospace;margin-bottom:14px}
+  .bubble{
+    background:#fff;border:1px solid var(--rule-soft);padding:13px 15px;
+    font-size:14.5px;line-height:1.62;max-width:34em;
+  }
+  .bubble .who{display:block;font-size:11.5px;color:var(--lapis);font-weight:500;margin-bottom:5px;font-family:"IBM Plex Mono",monospace;letter-spacing:.04em}
+  .caret{display:inline-block;width:7px;height:1.05em;background:var(--lapis);vertical-align:-2px;margin-left:1px}
+  .caret.done{display:none}
+  .attach{
+    display:flex;align-items:center;gap:9px;margin-top:10px;padding:9px 12px;
+    border:1px solid var(--rule-soft);background:#fff;font-size:12.5px;color:var(--ink-2);
+    font-family:"IBM Plex Mono",monospace;opacity:0;transition:opacity .4s ease;
+  }
+  .attach.on{opacity:1}
+  .attach .dot{width:6px;height:6px;background:var(--gold);flex:none}
+  .burn{margin-top:12px;font-size:11.5px;color:var(--ink-3);font-family:"IBM Plex Mono",monospace;opacity:0;transition:opacity .4s ease}
+  .burn.on{opacity:1}
+
+  /* right: mosaic ciphertext */
+  .mosaic{
+    display:grid;gap:1px;font-family:"IBM Plex Mono",monospace;
+    font-size:11px;line-height:1;user-select:none;
+  }
+  .cell{
+    display:flex;align-items:center;justify-content:center;
+    aspect-ratio:1/1;color:var(--ink-3);background:var(--surface-2);
+  }
+  .cell.t1{background:#E3E9ED;color:#7E8B91}
+  .cell.t2{background:var(--lapis-tint);color:#5C7690}
+  .cell.t3{background:#D3DDE4;color:#54697A}
+  .cell.t4{background:var(--lapis);color:#A9C3D8}
+  .mosaic-note{margin-top:14px;font-size:12px;color:var(--ink-2);font-family:"IBM Plex Mono",monospace}
+  .proof-caption{
+    margin-top:14px;font-size:13.5px;color:var(--ink-2);
+    display:flex;gap:10px;align-items:flex-start;
+  }
+  .proof-caption .bar-mark{width:2px;background:var(--gold);align-self:stretch;flex:none;min-height:1.4em}
+
+  /* ---------- generic sections ---------- */
+  section{border-top:1px solid var(--rule)}
+  .sec{padding-top:clamp(52px,7vw,88px);padding-bottom:clamp(52px,7vw,88px)}
+  .sec-title{
+    font-size:clamp(22px,2.9vw,32px);font-weight:600;letter-spacing:-.03em;
+    line-height:1.32;margin:16px 0 0;max-width:20em;
+  }
+  .sec-lede{margin:18px 0 0;max-width:42em;color:var(--ink-2);font-size:15.5px}
+
+  /* regulation facts */
+  .facts{margin-top:40px;border-top:1px solid var(--rule)}
+  .fact{
+    display:grid;grid-template-columns:150px minmax(0,1fr);gap:12px 28px;
+    padding:20px 0;border-bottom:1px solid var(--rule-soft);
+  }
+  .fact dt{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--lapis);padding-top:4px}
+  .fact dd{margin:0;font-size:15px;color:var(--ink)}
+  .fact dd em{font-style:normal;color:var(--ink-2)}
+
+  /* principles — deliberately unnumbered: they are not a sequence */
+  .principles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;margin-top:44px;background:var(--rule);border:1px solid var(--rule)}
+  .principle{background:var(--ground);padding:26px 22px 28px}
+  .principle h3{margin:14px 0 0;font-size:17px;font-weight:600;letter-spacing:-.02em;line-height:1.4}
+  .principle p{margin:11px 0 0;font-size:14px;color:var(--ink-2);line-height:1.68}
+  .principle .glyph{display:block;width:20px;height:20px;border:1.5px solid var(--lapis)}
+  .principle:nth-child(2) .glyph{border-style:dashed}
+  .principle:nth-child(3) .glyph{background:var(--lapis)}
+
+  /* status timeline — a real sequence, so it is dated and ordered */
+  .timeline{margin-top:40px;border-top:1px solid var(--rule)}
+  .stage{
+    display:grid;grid-template-columns:150px minmax(0,1fr);gap:10px 28px;
+    padding:22px 0;border-bottom:1px solid var(--rule-soft);align-items:start;
+  }
+  .stage .when{font-family:"IBM Plex Mono",monospace;font-size:12.5px;letter-spacing:.04em;color:var(--ink)}
+  .stage.now .when{color:var(--lapis);font-weight:500}
+  .stage h4{margin:0;font-size:15.5px;font-weight:500}
+  .stage p{margin:7px 0 0;font-size:14px;color:var(--ink-2)}
+  .badge{
+    display:inline-block;margin-left:9px;font-family:"IBM Plex Mono",monospace;
+    font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+    background:var(--lapis);color:#fff;padding:3px 7px;vertical-align:2px;
+  }
+  .honest{
+    margin-top:32px;border-left:2px solid var(--gold);padding:4px 0 4px 18px;
+    font-size:14.5px;color:var(--ink-2);max-width:44em;
+  }
+
+  /* name origin */
+  .origin{background:var(--surface);border-top:1px solid var(--rule)}
+  .origin .sec{padding-top:clamp(44px,6vw,72px);padding-bottom:clamp(44px,6vw,72px)}
+  .origin p{margin:18px 0 0;max-width:38em;font-size:16px;color:var(--ink-2);line-height:1.78}
+  .origin .split{display:flex;gap:6px;margin-top:26px}
+  .origin .half{width:38px;height:24px;border:1.5px solid var(--lapis)}
+  .origin .half:first-child{border-right:0;border-radius:0}
+  .origin .half:last-child{border-left:0;background:var(--lapis-tint)}
+
+  /* CTA */
+  .cta{background:var(--ink);color:var(--ground);border-top:1px solid var(--ink)}
+  .cta .eyebrow{color:#8FB4D2}
+  .cta h2{font-size:clamp(24px,3.4vw,38px);font-weight:600;letter-spacing:-.03em;margin:16px 0 0;line-height:1.3}
+  .cta .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:34px;margin-top:38px}
+  .cta .label{color:#7E8E96}
+  .cta ul{margin:12px 0 0;padding:0;list-style:none}
+  .cta li{font-size:14.5px;color:#C3CCD0;padding:7px 0;border-bottom:1px solid #2A3236}
+  .cta .btn{border-color:var(--ground);background:var(--ground);color:var(--ink);margin-top:34px}
+  .cta .btn:hover{background:#8FB4D2;border-color:#8FB4D2}
+
+  footer{background:var(--ink);color:#7E8E96;padding:26px 0 40px;font-size:12.5px}
+  footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid #2A3236;padding-top:22px}
+  footer a{color:#C3CCD0;text-decoration:none}
+  footer a:hover{color:#fff}
+
+  a:focus-visible,.btn:focus-visible{outline:2px solid var(--lapis);outline-offset:3px}
+  .cta a:focus-visible{outline-color:#8FB4D2}
+
+  @media(max-width:900px){
+    .panels{grid-template-columns:1fr}
+    .panel + .panel{border-left:0;border-top:1px solid var(--ink)}
+    .principles{grid-template-columns:1fr}
+    .cta .grid{grid-template-columns:1fr;gap:26px}
+  }
+  @media(max-width:620px){
+    .fact,.stage{grid-template-columns:1fr;gap:6px}
+    .bar .cta-sm{padding:7px 11px}
+    .mark{letter-spacing:.3em;text-indent:.3em;font-size:13px}
+    .panel-body{min-height:0}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a class="mark" href="#top" data-brand-en>TESSERA</a>
+    <a class="cta-sm" href="#poc">PoC 문의</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <div class="wrap hero">
+    <p class="eyebrow">전자금융감독규정 시행세칙 개정 · 2026.04.20</p>
+    <h1>내부망에서 쓰는 기업 메신저.<br><span class="soft">서버는 열쇠를 갖지 않습니다.</span></h1>
+    <p class="lede">망분리 규제가 완화되면서 금융회사 내부 업무망에서도 SaaS 협업툴을 쓸 수 있게 됐습니다.
+      <span data-brand-ko>테세라</span>는 <strong>시행세칙 별표7 정보보호통제를 전제로 설계한 종단간 암호화 메신저</strong>입니다.
+      키 생성과 암복호화는 사용자 기기에서만 이루어지고, 서버에는 암호문만 남습니다.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="#poc">PoC 파트너 문의</a>
+      <a class="btn btn-ghost" href="#how">동작 방식 보기</a>
+    </div>
+  </div>
+
+  <!-- SIGNATURE: same message, two views -->
+  <div class="wrap proof" id="how">
+    <div class="proof-head">
+      <p class="label">같은 메시지 · 두 개의 화면</p>
+      <p class="label">XChaCha20-Poly1305 / X25519</p>
+    </div>
+
+    <div class="panels" id="proof-panels">
+      <div class="panel">
+        <div class="panel-top">
+          <span class="label">사용자 기기</span>
+          <span class="label" style="color:var(--lapis)">복호화됨</span>
+        </div>
+        <div class="panel-body">
+          <p class="chat-meta">여신심사팀 · 참여자 4명 · 종단간 암호화</p>
+          <div class="bubble">
+            <span class="who">박현수 과장</span><span id="typed"></span><span class="caret" id="caret"></span>
+          </div>
+          <div class="attach" id="attach"><span class="dot"></span>여신기준_초안_v3.pdf · 2.4 MB</div>
+          <p class="burn" id="burn">자동 파기까지 71:59:12 · 화면 워터마크 적용</p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-top">
+          <span class="label">서버 데이터베이스</span>
+          <span class="label">messages.ciphertext</span>
+        </div>
+        <div class="panel-body">
+          <div class="mosaic" id="mosaic" aria-hidden="true"></div>
+          <p class="mosaic-note">복호화 키 없음 · 평문 컬럼 없음</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="proof-caption"><span class="bar-mark"></span>
+      <span>서버 운영자도, 저희도 오른쪽만 봅니다. 관리자 감사로그에는 누가 언제 누구와 대화했는지까지만 남고, 무슨 말을 했는지는 남지 않습니다.</span></p>
+  </div>
+
+  <!-- REGULATION -->
+  <section>
+    <div class="wrap sec">
+      <p class="eyebrow">왜 지금인가</p>
+      <h2 class="sec-title">망분리는 풀렸습니다.<br>남은 건 별표7입니다.</h2>
+      <p class="sec-lede">규제는 열렸지만 문턱은 그대로 남았습니다. 대부분의 협업툴은 이 문턱을 나중에 맞추려 합니다.
+        <span data-brand-ko>테세라</span>는 이 요건을 먼저 넣고 제품을 설계했습니다.</p>
+
+      <dl class="facts">
+        <div class="fact"><dt>허용</dt><dd>혁신금융서비스 지정 없이 금융회사·전자금융업자가 내부 업무망에서 SaaS를 이용할 수 있게 됐습니다. <em>협업툴이 대표 허용 사례입니다.</em></dd></div>
+        <div class="fact"><dt>조건</dt><dd>시행세칙 별표7의 정보보호통제를 충족하고 금융보안원 평가를 통과해야 합니다. <em>진입 장벽인 동시에, 통과하면 해자가 됩니다.</em></dd></div>
+        <div class="fact"><dt>제외</dt><dd>개인신용정보를 처리하는 SaaS는 대상에서 제외됩니다. <em>협업 메시징은 설계상 이 범위를 건드리지 않습니다.</em></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- PRINCIPLES (not a sequence → no numbering) -->
+  <section>
+    <div class="wrap sec">
+      <p class="eyebrow">설계 원칙</p>
+      <h2 class="sec-title">보안 제품에서 지킨 것보다 중요한 건, 지키지 않기로 한 것입니다.</h2>
+
+      <div class="principles">
+        <div class="principle">
+          <span class="glyph" aria-hidden="true"></span>
+          <h3>서버는 키를 보관하지 않습니다</h3>
+          <p>키 생성·교환·암복호화가 전부 사용자 기기에서 일어납니다. 서버 데이터베이스에는 암호문 컬럼만 존재합니다. 저희가 압수수색을 받아도 내드릴 평문이 없습니다.</p>
+        </div>
+        <div class="principle">
+          <span class="glyph" aria-hidden="true"></span>
+          <h3>감사로그는 메타데이터까지만</h3>
+          <p>누가, 언제, 누구와. 여기까지는 남깁니다. 무엇을 말했는지는 남기지 않습니다. 종단간 암호화와 기업 컴플라이언스를 양립시키는 선을 여기에 그었습니다.</p>
+        </div>
+        <div class="principle">
+          <span class="glyph" aria-hidden="true"></span>
+          <h3>자체 암호를 만들지 않습니다</h3>
+          <p>libsodium의 X25519 키교환과 XChaCha20-Poly1305만 사용합니다. 직접 설계한 암호 알고리즘은 쓰지 않습니다. 검증되지 않은 암호는 암호가 아닙니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATUS (a real sequence → dated and ordered) -->
+  <section>
+    <div class="wrap sec">
+      <p class="eyebrow">현재 상태</p>
+      <h2 class="sec-title">아직 판매하지 않습니다.</h2>
+      <p class="sec-lede">지금 있는 것과 없는 것을 그대로 적습니다. 보안 제품에서 과장은 첫 미팅에서 걸립니다.</p>
+
+      <div class="timeline">
+        <div class="stage now">
+          <div class="when">2026.08 — 10</div>
+          <div>
+            <h4>비공개 데모 구축<span class="badge">진행 중</span></h4>
+            <p>웹 기준 1:1·그룹 종단간 암호화 채팅, 파일 암호화 전송, 자동 파기 타이머, 관리자 콘솔.</p>
+          </div>
+        </div>
+        <div class="stage">
+          <div class="when">2026.11 —</div>
+          <div>
+            <h4>PoC 파트너 3개사</h4>
+            <p>금융회사와 R&amp;D 조직을 대상으로 3개월 유료 PoC. 별표7 요건 매핑 문서를 함께 제공합니다.</p>
+          </div>
+        </div>
+        <div class="stage">
+          <div class="when">2027</div>
+          <div>
+            <h4>정식 출시 · 모바일</h4>
+            <p>SaaS 정식 출시와 모바일 클라이언트. ISMS 수준의 보안체계 정비를 병행합니다.</p>
+          </div>
+        </div>
+        <div class="stage">
+          <div class="when">2028 —</div>
+          <div>
+            <h4>CSAP 간편등급 착수</h4>
+            <p>공공 부문 공급을 위한 인증 트랙. MLS(RFC 9420)와 양자내성암호는 이 시점 이후의 연구 로드맵입니다.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="honest">지금은 파는 단계가 아니라 함께 검증할 파트너를 찾는 단계입니다.
+        요건이 까다로운 조직일수록 초기 PoC에서 얻는 게 많습니다.</p>
+    </div>
+  </section>
+
+  <!-- NAME ORIGIN -->
+  <div class="origin">
+    <div class="wrap sec">
+      <p class="eyebrow">이름에 대하여</p>
+      <div class="split" aria-hidden="true"><span class="half"></span><span class="half"></span></div>
+      <p>테세라(tessera)는 로마인들이 신원을 증명하던 작은 토큰입니다.
+        하나를 반으로 쪼개 각자 한 조각씩 나눠 갖고, 다시 만났을 때 두 조각을 맞춰 서로를 확인했습니다.
+        한 조각만으로는 아무것도 증명하지 못했습니다.</p>
+      <p>키 교환이 하는 일이 정확히 그렇습니다. 그리고 서버가 보관하는 조각으로는, 아무것도 열리지 않습니다.</p>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <section class="cta" id="poc">
+    <div class="wrap sec">
+      <p class="eyebrow">PoC 파트너 모집</p>
+      <h2>요건이 까다로운 조직을<br>먼저 찾고 있습니다.</h2>
+
+      <div class="grid">
+        <div>
+          <p class="label">대상</p>
+          <ul>
+            <li>금융회사 · 전자금융업자</li>
+            <li>제약 · 바이오 R&amp;D 조직</li>
+            <li>반도체 · 소재 연구 부문</li>
+          </ul>
+        </div>
+        <div>
+          <p class="label">제공</p>
+          <ul>
+            <li>3개월 유료 PoC · 전용 배포</li>
+            <li>별표7 요건 매핑 문서</li>
+            <li>보안 아키텍처 리뷰 세션</li>
+          </ul>
+        </div>
+      </div>
+
+      <a class="btn" id="mailcta" href="#">이메일로 문의하기</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <span class="mark" data-brand-en style="color:#C3CCD0">TESSERA</span>
+      <span><a id="mailfoot" href="#">poc@tessera.co.kr</a></span>
+      <span>© 2026 <span data-brand-ko>테세라</span> · 본 페이지의 일정과 기능은 개발 계획이며 변경될 수 있습니다.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   브랜드명은 여기 한 곳에만 있습니다.
+   이름을 바꾸면 이 객체 3줄과 <title>/<meta>만 고치면 됩니다.
+   ============================================================ */
+const BRAND = {
+  en: "TESSERA",
+  ko: "테세라",
+  email: "poc@tessera.co.kr"   // ← 도메인 확정 후 교체
+};
+
+document.querySelectorAll("[data-brand-en]").forEach(el => el.textContent = BRAND.en);
+document.querySelectorAll("[data-brand-ko]").forEach(el => el.textContent = BRAND.ko);
+
+const subject = encodeURIComponent(`[PoC 문의] ${BRAND.ko}`);
+const body = encodeURIComponent("회사명:\n담당자/직함:\n업종(금융 / 제약·바이오 / 반도체 / 기타):\n예상 사용 인원:\n검토 중인 요건(별표7, ISMS, 내부 규정 등):\n\n남기실 말씀:\n");
+const mailto = `mailto:${BRAND.email}?subject=${subject}&body=${body}`;
+document.getElementById("mailcta").href = mailto;
+const mf = document.getElementById("mailfoot");
+mf.href = "mailto:" + BRAND.email;
+mf.textContent = BRAND.email;
+
+/* ---------- signature animation ---------- */
+const MESSAGE = "3분기 여신 심사 기준 초안입니다. 리스크팀 의견 반영해서 4페이지 한도 산식만 바뀌었습니다.";
+const B64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+const TINTS = ["", "t1", "t1", "t2", "t2", "t3", "t3", "t4"];
+
+const mosaic = document.getElementById("mosaic");
+const typed  = document.getElementById("typed");
+const caret  = document.getElementById("caret");
+const attach = document.getElementById("attach");
+const burn   = document.getElementById("burn");
+
+let cells = [], COLS = 0, ROWS = 0;
+const rand = a => a[(Math.random() * a.length) | 0];
+
+function buildMosaic(){
+  const w = mosaic.clientWidth || 380;
+  COLS = Math.max(16, Math.min(34, Math.floor(w / 14)));
+  ROWS = 14;
+  mosaic.style.gridTemplateColumns = `repeat(${COLS}, minmax(0,1fr))`;
+  mosaic.innerHTML = "";
+  cells = [];
+  for (let i = 0; i < COLS * ROWS; i++){
+    const c = document.createElement("span");
+    const t = rand(TINTS);
+    c.className = "cell" + (t ? " " + t : "");
+    c.textContent = rand(B64);
+    mosaic.appendChild(c);
+    cells.push(c);
+  }
+}
+buildMosaic();
+
+let rt;
+addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(buildMosaic, 200); });
+
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function finish(){
+  typed.textContent = MESSAGE;
+  caret.classList.add("done");
+  attach.classList.add("on");
+  burn.classList.add("on");
+}
+
+function run(){
+  let i = 0;
+  const scramble = setInterval(() => {
+    for (let n = 0; n < 40; n++){
+      const c = cells[(Math.random() * cells.length) | 0];
+      if (c) c.textContent = rand(B64);
+    }
+  }, 55);
+
+  const type = setInterval(() => {
+    typed.textContent = MESSAGE.slice(0, ++i);
+    if (i >= MESSAGE.length){
+      clearInterval(type);
+      caret.classList.add("done");
+      attach.classList.add("on");
+      setTimeout(() => burn.classList.add("on"), 260);
+      setTimeout(() => clearInterval(scramble), 500);
+    }
+  }, 34);
+}
+
+if (reduced){
+  finish();
+} else {
+  const io = new IntersectionObserver((entries, obs) => {
+    entries.forEach(e => {
+      if (e.isIntersecting){ obs.disconnect(); setTimeout(run, 350); }
+    });
+  }, { threshold: 0.25 });
+  io.observe(document.getElementById("proof-panels"));
+}
+</script>
+</body>
+</html>
