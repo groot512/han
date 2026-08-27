@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(주)케이제이글로벌 - 친환경 원자재 재생 기술 대시보드</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 680px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-emerald-200 selection:text-emerald-900">
+
+    <!-- Chosen Palette: Slate & Eco Emerald - Light Slate Background (#F8FAFC), Deep Slate Text (#0F172A), Eco Emerald Accent (#059669 / #10B981), Soft Teal Highlights (#0D9488) -->
+
+    <!-- Application Structure Plan:
+    The application is designed as an interactive single-page dashboard tailored for exploring KJ Global's corporate identity, proprietary dry recycling technology, IP assets, global supply chain, and industry market potential:
+    1. Navigation Bar: Sticky header for seamless navigation across thematic sections.
+    2. Executive Summary / At-a-Glance KPI Section: Highlight key corporate metrics (99%+ copper recovery, 0% wastewater/emissions, 2 registered patents, 120B USD market forecast).
+    3. Corporate Profile & Governance: Interactive tabbed view covering legal profile, dual leadership (CEO Kim Seok-soo & VP Jeong Hyun-woo), and international branch management (Overseas Subsidiary President Jun Bok-nam).
+    4. Proprietary Technology & Process Mechanism: Dynamic step-by-step interactive diagram detailing the physical air separation process for waste optical/jelly cables and automotive insert parts.
+    5. Technology Comparison Matrix: Interactive filterable table contrasting traditional wet/incineration methods with KJ Global's dry eco-process across core metrics.
+    6. Market Growth & Multi-Tier Impact Analysis: Dual-axis Chart.js visualization of market expansion (2023-2030) and interactive accordion/tabs for 1st, 2nd, and 3rd order ESG/LCA impacts.
+    7. Intellectual Property & Global Supply Chain Network: Showcase of patent specifications, tech awards, and international scrap-to-raw-material circular flow.
+    8. Contact & Interactive Business Card: Digital representation of Overseas Subsidiary President Jun Bok-nam's contact card with instant copy-to-clipboard actions.
+    This structure transforms traditional report data into an engaging, multi-perspective analytical dashboard for investors, partners, and sustainability analysts. -->
+
+    <!-- Visualization & Content Choices:
+    - Core Metrics -> Stat Indicator Cards -> Highlighting key operational achievements (99% purity, zero pollution) -> Visual emphasis -> HTML/Tailwind CSS components.
+    - Dry Process Flow -> Interactive Step Sequence Node Diagram -> User clicks step nodes to update detail sub-panel -> Granular understanding of fluid dynamics air separation -> Vanilla JS + HTML DOM manipulation (NO SVG/Mermaid).
+    - Comparative Evaluation -> Dynamic Matrix Table -> User toggles criteria filters (Recovery rate, Jelly treatment, Pollution, Mechanisms) -> Clear technical differentiation -> Vanilla JS filter logic.
+    - Market Growth Projections -> Responsive Dual-Axis Combination Bar/Line Chart -> Interactive tooltips for global ($USD) and domestic ($KRW) forecasts -> Chart.js Canvas component with responsive container bounds.
+    - Multi-tier Industry Impact -> Interactive Tabbed Segment Switcher -> Detailed breakdown of 1st, 2nd, and 3rd tier ESG & supply chain benefits -> JS State toggles.
+    - Confirming NO SVG or Mermaid JS used. All visual elements built with pure Tailwind HTML, Unicode symbols, and Canvas. -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Top Navigation Header -->
+    <header class="sticky top-0 z-50 bg-slate-900/95 backdrop-blur-md text-white border-b border-slate-800 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <span class="bg-emerald-600 text-white font-black text-lg px-2.5 py-1 rounded-md tracking-wider">KJ</span>
+                <div>
+                    <h1 class="text-base font-bold leading-tight tracking-tight">(주)케이제이글로벌</h1>
+                    <p class="text-xs text-emerald-400 font-medium">친환경 원자재 재생 전문 기업</p>
+                </div>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-sm font-medium">
+                <a href="#summary" class="hover:text-emerald-400 transition-colors">기업 요약</a>
+                <a href="#overview" class="hover:text-emerald-400 transition-colors">거버넌스</a>
+                <a href="#technology" class="hover:text-emerald-400 transition-colors">건식 기술 공정</a>
+                <a href="#comparison" class="hover:text-emerald-400 transition-colors">공정 비교</a>
+                <a href="#market" class="hover:text-emerald-400 transition-colors">시장 & 파급효과</a>
+                <a href="#ip-supply" class="hover:text-emerald-400 transition-colors">특허 & 공급망</a>
+                <a href="#contact" class="hover:text-emerald-400 transition-colors">문의처</a>
+            </nav>
+            <div class="md:hidden">
+                <button id="mobile-menu-btn" class="text-slate-300 hover:text-white p-2 rounded-lg bg-slate-800 focus:outline-none">
+                    ☰
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-900 border-b border-slate-800 px-4 pt-2 pb-4 space-y-2 text-sm">
+            <a href="#summary" class="block text-slate-200 hover:text-emerald-400 py-1">기업 요약</a>
+            <a href="#overview" class="block text-slate-200 hover:text-emerald-400 py-1">거버넌스</a>
+            <a href="#technology" class="block text-slate-200 hover:text-emerald-400 py-1">건식 기술 공정</a>
+            <a href="#comparison" class="block text-slate-200 hover:text-emerald-400 py-1">공정 비교</a>
+            <a href="#market" class="block text-slate-200 hover:text-emerald-400 py-1">시장 & 파급효과</a>
+            <a href="#ip-supply" class="block text-slate-200 hover:text-emerald-400 py-1">특허 & 공급망</a>
+            <a href="#contact" class="block text-slate-200 hover:text-emerald-400 py-1">문의처</a>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <!-- Hero Title Banner -->
+        <section class="bg-gradient-to-r from-slate-900 via-slate-800 to-emerald-950 text-white rounded-2xl p-6 sm:p-10 shadow-xl relative overflow-hidden">
+            <div class="relative z-10 max-w-3xl">
+                <div class="inline-flex items-center space-x-2 bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-semibold px-3 py-1 rounded-full mb-4">
+                    <span>🌱 2025 에너지·친환경 기술대상 수상</span>
+                </div>
+                <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight leading-tight mb-4">
+                    폐케이블의 고부가가치 순환,<br>
+                    <span class="text-emerald-400">무유해·무폐수 건식 자원재생</span> 혁신
+                </h2>
+                <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
+                    (주)케이제이글로벌은 화학 약품과 고온 소각 없이 물리적 박리와 에어(공기) 기술만으로 폐광케이블 및 젤리케이블에서 99% 이상의 고순도 구리와 HDPE 고분자 수지를 회수하는 독자적 자원재생 기술 기업입니다.
+                </p>
+                <div class="flex flex-wrap gap-3">
+                    <a href="#technology" class="bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-bold px-5 py-2.5 rounded-lg transition shadow-md inline-block">
+                        ⚙️ 건식 공정 메커니즘 탐색
+                    </a>
+                    <a href="#contact" class="bg-slate-700 hover:bg-slate-600 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition border border-slate-600 inline-block">
+                        📞 글로벌 공급망 & 사업 문의
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Executive At-a-Glance Summary (KPI Metrics) -->
+        <section id="summary" class="space-y-4">
+            <div class="bg-emerald-50 border-l-4 border-emerald-600 p-4 rounded-r-lg shadow-sm">
+                <p class="text-slate-700 text-xs sm:text-sm leading-relaxed">
+                    <strong>대시보드 안내:</strong> 본 섹션은 (주)케이제이글로벌의 핵심 성과 수치와 기술적 강점을 한눈에 파악할 수 있도록 구성된 종합 요약 섹션입니다. 구리 회수율, 환경오염 배출량, 보유 특허, 시장 전망 등 주요 핵심 지표 카드를 통해 기업의 정량적·정성적 가치를 직관적으로 확인할 수 있습니다.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                    <div class="flex items-center justify-between text-slate-500 text-xs font-bold uppercase mb-2">
+                        <span>구리 회수 순도</span>
+                        <span class="text-emerald-600 text-base">🎯</span>
+                    </div>
+                    <div class="text-2xl sm:text-3xl font-black text-slate-900 mb-1">99%+</div>
+                    <p class="text-xs text-slate-500">입자 손실 없는 고순도 비철금속 회수</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                    <div class="flex items-center justify-between text-slate-500 text-xs font-bold uppercase mb-2">
+                        <span>공정 오염 물질</span>
+                        <span class="text-emerald-600 text-base">🌱</span>
+                    </div>
+                    <div class="text-2xl sm:text-3xl font-black text-emerald-600 mb-1">ZERO</div>
+                    <p class="text-xs text-slate-500">무폐수 / 무유해가스 / 악취 방지 공정</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                    <div class="flex items-center justify-between text-slate-500 text-xs font-bold uppercase mb-2">
+                        <span>독자 특허 보유</span>
+                        <span class="text-emerald-600 text-base">📜</span>
+                    </div>
+                    <div class="text-2xl sm:text-3xl font-black text-slate-900 mb-1">2건</div>
+                    <p class="text-xs text-slate-500">제10-2398019호, 제10-1728129호 등록</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                    <div class="flex items-center justify-between text-slate-500 text-xs font-bold uppercase mb-2">
+                        <span>글로벌 Target 시장</span>
+                        <span class="text-emerald-600 text-base">📈</span>
+                    </div>
+                    <div class="text-2xl sm:text-3xl font-black text-slate-900 mb-1">$1,200억</div>
+                    <p class="text-xs text-slate-500">2030년 글로벌 자원재생 시장 전망</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 1: Corporate Overview & Governance -->
+        <section id="overview" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8 space-y-6">
+            <div class="border-b border-slate-200 pb-4">
+                <span class="text-emerald-600 font-bold text-xs uppercase tracking-wider">SECTION 01</span>
+                <h3 class="text-xl sm:text-2xl font-bold text-slate-900 mt-1">기업 개요 및 거버넌스 체계</h3>
+                <p class="text-slate-600 text-sm mt-2 leading-relaxed">
+                    본 섹션은 (주)케이제이글로벌의 법인 개요, 경영진 조직 체계 및 사업장 현황을 탐색하는 공간입니다. 아래의 탭 버튼을 선택하여 법인 기본 정보, 기술 총괄 경영진(대표이사 김석수, 부사장 정현우) 및 글로벌 수급을 전담하는 해외 법인장(전복남)의 역할 분담과 조직 구조를 상세히 확인할 수 있습니다.
+                </p>
+            </div>
+
+            <!-- Tab Navigation Buttons -->
+            <div class="flex flex-wrap gap-2 border-b border-slate-200 pb-3">
+                <button id="btn-corp-general" onclick="switchCorpTab('general')" class="corp-tab-btn px-4 py-2 rounded-lg text-sm font-semibold bg-slate-900 text-white shadow-sm transition">
+                    🏢 기업 기본 정보
+                </button>
+                <button id="btn-corp-gov" onclick="switchCorpTab('gov')" class="corp-tab-btn px-4 py-2 rounded-lg text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+                    👥 경영진 및 거버넌스
+                </button>
+                <button id="btn-corp-biz" onclick="switchCorpTab('biz')" class="corp-tab-btn px-4 py-2 rounded-lg text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+                    🏭 주력 사업 및 생산 기반
+                </button>
+            </div>
+
+            <!-- Tab Content 1: General Info -->
+            <div id="tab-corp-general" class="corp-tab-content space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                        <div class="text-xs text-slate-500 font-bold">법인명 (국/영문)</div>
+                        <div class="text-base font-bold text-slate-900">(주)케이제이글로벌 <span class="text-xs font-normal text-slate-500 block sm:inline">(KJ Global Co., Ltd.)</span></div>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                        <div class="text-xs text-slate-500 font-bold">사업자등록번호 & 설립일</div>
+                        <div class="text-base font-bold text-slate-900">501-81-32154 <span class="text-xs font-normal text-emerald-600 font-semibold block sm:inline">| 2024년 3월 12일 설립</span></div>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                        <div class="text-xs text-slate-500 font-bold">표준산업분류</div>
+                        <div class="text-base font-bold text-slate-900">C24219 <span class="text-xs font-normal text-slate-600 block sm:inline">(기타 비철금속 제련, 정련 및 합금 제조업)</span></div>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                        <div class="text-xs text-slate-500 font-bold">본사 및 생산 공장 주소</div>
+                        <div class="text-base font-bold text-slate-900">대구광역시 달성군 현풍읍 현풍서로 114-4</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content 2: Governance -->
+            <div id="tab-corp-gov" class="corp-tab-content hidden space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 bg-emerald-600 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg">기술 총괄</div>
+                        <div class="text-xs text-slate-500 font-bold">대표이사</div>
+                        <div class="text-xl font-bold text-slate-900">김 석 수</div>
+                        <p class="text-xs text-slate-600 mt-2">친환경 건식 자원재생 기술 연구개발 및 경영 총괄</p>
+                    </div>
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 bg-teal-600 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg">사업 총괄</div>
+                        <div class="text-xs text-slate-500 font-bold">부사장</div>
+                        <div class="text-xl font-bold text-slate-900">정 현 우</div>
+                        <p class="text-xs text-slate-600 mt-2">국내 유통 및 양산 공정 운영 관리 총괄</p>
+                    </div>
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 bg-indigo-600 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg">글로벌 조직</div>
+                        <div class="text-xs text-slate-500 font-bold">해외법인장</div>
+                        <div class="text-xl font-bold text-slate-900">전 복 남</div>
+                        <p class="text-xs text-slate-600 mt-2">해외 스크랩 및 해외 원자재 수급 글로벌 네트워크 전담</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content 3: Business Scope -->
+            <div id="tab-corp-biz" class="corp-tab-content hidden space-y-4">
+                <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-200 text-sm text-slate-800 space-y-2">
+                    <h4 class="font-bold text-emerald-900">대구 현풍 공장 본격 가동 및 양산 체제 전환</h4>
+                    <p class="text-xs text-slate-700 leading-relaxed">
+                        2024년 법인 설립 초기 단계의 설비 투자를 거쳐, 대구 현풍 신규 재활용 사업장이 본격화됨에 따라 공무 및 전기·용접 전문 인력을 확충하고 고순도 비철금속 양산 체제를 가동하고 있습니다.
+                    </p>
+                    <ul class="list-disc list-inside text-xs text-slate-700 space-y-1 font-medium pt-1">
+                        <li><strong>폐광케이블 & 폐젤리케이블:</strong> 유분 세척 화학약품 없이 물리적 에어 선별로 99% 순도 구리 회수</li>
+                        <li><strong>인서트 사출 불량품:</strong> 자동차 부품 금속-플라스틱 복합 폐기물의 친환경 원자재별 분리</li>
+                        <li><strong>고분자 플라스틱 회수:</strong> 고부가가치 HDPE(고밀도 폴리에틸렌) 정밀 분리 및 자원 재입고</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Proprietary Dry Recycling Process Mechanism -->
+        <section id="technology" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8 space-y-6">
+            <div class="border-b border-slate-200 pb-4">
+                <span class="text-emerald-600 font-bold text-xs uppercase tracking-wider">SECTION 02</span>
+                <h3 class="text-xl sm:text-2xl font-bold text-slate-900 mt-1">독자적 친환경 건식 자원재생 공정 메커니즘</h3>
+                <p class="text-slate-600 text-sm mt-2 leading-relaxed">
+                    본 섹션은 기존 재활용 업계의 난제였던 폐광케이블 및 젤리케이블 유분 분리를 무유해물질·무폐수 방식으로 해결한 독자적 건식 공정을 설명합니다. 아래의 4단계 공정 노드를 클릭하면 해당 단계의 상세 동작 매커니즘, 투입물 및 회수 산출물 정보를 인터랙티브하게 확인할 수 있습니다.
+                </p>
+            </div>
+
+            <!-- Process Step Nodes (Interactive Diagram with NO SVG/Mermaid) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                <button id="step-btn-1" onclick="selectProcessStep(1)" class="process-step-btn p-4 rounded-xl border-2 border-emerald-600 bg-emerald-50 text-left transition relative">
+                    <div class="text-xs font-bold text-emerald-700">STEP 01</div>
+                    <div class="text-sm font-extrabold text-slate-900 mt-1">원자재 투입 & 물리적 박리</div>
+                    <div class="text-[11px] text-slate-600 mt-2">케이블 외피 및 피복의 기계적 열화 없는 분리</div>
+                </button>
+
+                <button id="step-btn-2" onclick="selectProcessStep(2)" class="process-step-btn p-4 rounded-xl border-2 border-slate-200 bg-slate-50 hover:bg-slate-100 text-left transition relative">
+                    <div class="text-xs font-bold text-slate-500">STEP 02</div>
+                    <div class="text-sm font-extrabold text-slate-900 mt-1">유체역학 에어(Air) 정밀 선별</div>
+                    <div class="text-[11px] text-slate-600 mt-2">공기 흐름 제어로 젤리 유분 및 입자 분리</div>
+                </button>
+
+                <button id="step-btn-3" onclick="selectProcessStep(3)" class="process-step-btn p-4 rounded-xl border-2 border-slate-200 bg-slate-50 hover:bg-slate-100 text-left transition relative">
+                    <div class="text-xs font-bold text-slate-500">STEP 03</div>
+                    <div class="text-sm font-extrabold text-slate-900 mt-1">99%+ 고순도 구리 회수</div>
+                    <div class="text-[11px] text-slate-600 mt-2">소각 손실 없는 고가 비철금속 입자 추출</div>
+                </button>
+
+                <button id="step-btn-4" onclick="selectProcessStep(4)" class="process-step-btn p-4 rounded-xl border-2 border-slate-200 bg-slate-50 hover:bg-slate-100 text-left transition relative">
+                    <div class="text-xs font-bold text-slate-500">STEP 04</div>
+                    <div class="text-sm font-extrabold text-slate-900 mt-1">고순도 HDPE 수지 회수</div>
+                    <div class="text-[11px] text-slate-600 mt-2">재사용 가능한 고분자 합성수지 완벽 분리</div>
+                </button>
+            </div>
+
+            <!-- Dynamic Process Step Detail Box -->
+            <div id="process-detail-box" class="bg-slate-900 text-white rounded-xl p-6 space-y-4 shadow-md">
+                <!-- Dynamically updated by JS -->
+            </div>
+        </section>
+
+        <!-- Section 3: Technology Comparison Matrix -->
+        <section id="comparison" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8 space-y-6">
+            <div class="border-b border-slate-200 pb-4">
+                <span class="text-emerald-600 font-bold text-xs uppercase tracking-wider">SECTION 03</span>
+                <h3 class="text-xl sm:text-2xl font-bold text-slate-900 mt-1">기존 공정 vs (주)케이제이글로벌 건식 공정 비교</h3>
+                <p class="text-slate-600 text-sm mt-2 leading-relaxed">
+                    본 섹션은 화학 약품 용해나 고온 소각을 활용하는 기존 습식 재활용 방식과 (주)케이제이글로벌의 친환경 건식 공정을 다차원적으로 비교 분석합니다. 아래 필터 버튼을 클릭하여 특정 분석 기준 항목만 선택적으로 모아볼 수 있습니다.
+                </p>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap gap-2 text-xs font-semibold">
+                <button onclick="filterMatrix('all')" id="matrix-btn-all" class="matrix-filter-btn px-3 py-1.5 rounded-md bg-emerald-600 text-white">전체 보기</button>
+                <button onclick="filterMatrix('purity')" id="matrix-btn-purity" class="matrix-filter-btn px-3 py-1.5 rounded-md bg-slate-100 text-slate-700 hover:bg-slate-200">구리 회수율 & 순도</button>
+                <button onclick="filterMatrix('env')" id="matrix-btn-env" class="matrix-filter-btn px-3 py-1.5 rounded-md bg-slate-100 text-slate-700 hover:bg-slate-200">환경 오염 & 무폐수</button>
+                <button onclick="filterMatrix('jelly')" id="matrix-btn-jelly" class="matrix-filter-btn px-3 py-1.5 rounded-md bg-slate-100 text-slate-700 hover:bg-slate-200">유분(Jelly) 처리 기술</button>
+            </div>
+
+            <!-- Comparison Table -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-sm">
+                    <thead>
+                        <tr class="bg-slate-100 text-slate-800 border-b border-slate-200">
+                            <th class="p-3 font-bold w-1/4">구분 항목</th>
+                            <th class="p-3 font-bold w-3/8 text-slate-600">기존 습식 세척 및 소각 공정</th>
+                            <th class="p-3 font-bold w-3/8 text-emerald-800 bg-emerald-50/80">KJ글로벌 친환경 건식 공정</th>
+                        </tr>
+                    </thead>
+                    <tbody id="matrix-tbody" class="divide-y divide-slate-200 text-slate-700">
+                        <tr data-category="env" class="matrix-row hover:bg-slate-50 transition">
+                            <td class="p-3 font-semibold text-slate-900">처리 메커니즘</td>
+                            <td class="p-3 text-slate-600">화학 약품 용해, 습식 세척, 고온 소각</td>
+                            <td class="p-3 font-bold text-emerald-700 bg-emerald-50/30">물리적 피복 박리 및 유체역학 에어 선별</td>
+                        </tr>
+                        <tr data-category="env" class="matrix-row hover:bg-slate-50 transition">
+                            <td class="p-3 font-semibold text-slate-900">환경 오염성</td>
+                            <td class="p-3 text-red-600 font-medium">대량 폐수 발생, 유해 가스 배출, 악취 발생</td>
+                            <td class="p-3 font-bold text-emerald-700 bg-emerald-50/30">무폐수, 배출가스 무발생, 악취 0% 친환경</td>
+                        </tr>
+                        <tr data-category="jelly" class="matrix-row hover:bg-slate-50 transition">
+                            <td class="p-3 font-semibold text-slate-900">유분(Jelly) 처리</td>
+                            <td class="p-3 text-slate-600">분쇄 칼날 오염, 젤리 유분 입자 재부착 문제</td>
+                            <td class="p-3 font-bold text-emerald-700 bg-emerald-50/30">물리적 에어 기술로 젤리 유분 완벽 정밀 분리</td>
+                        </tr>
+                        <tr data-category="purity" class="matrix-row hover:bg-slate-50 transition">
+                            <td class="p-3 font-semibold text-slate-900">구리 회수율 & 순도</td>
+                            <td class="p-3 text-slate-600">불순물 혼입 및 소각 열손실로 회수율 저하</td>
+                            <td class="p-3 font-bold text-emerald-700 bg-emerald-50/30">99% 이상의 고순도 구리 입자 회수</td>
+                        </tr>
+                        <tr data-category="purity" class="matrix-row hover:bg-slate-50 transition">
+                            <td class="p-3 font-semibold text-slate-900">플라스틱 부산물 회수</td>
+                            <td class="p-3 text-slate-600">합성수지 열화, 유분 오염으로 전량 소각 폐기</td>
+                            <td class="p-3 font-bold text-emerald-700 bg-emerald-50/30">HDPE(고밀도 폴리에틸렌) 고순도 원자재 회수</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 4: Market Projections & Multi-Tier Impact Analysis -->
+        <section id="market" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8 space-y-6">
+            <div class="border-b border-slate-200 pb-4">
+                <span class="text-emerald-600 font-bold text-xs uppercase tracking-wider">SECTION 04</span>
+                <h3 class="text-xl sm:text-2xl font-bold text-slate-900 mt-1">자원재생 시장 전망 및 파급효과 분석</h3>
+                <p class="text-slate-600 text-sm mt-2 leading-relaxed">
+                    본 섹션은 2023년부터 2030년까지의 글로벌 및 국내 폐자원 재활용 시장 전망을 데이터 차트로 제시하고, (주)케이제이글로벌의 건식 공정이 유발하는 1차·2차·3차 파급효과를 다각도로 도출합니다.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Dynamic Chart Container -->
+                <div class="lg:col-span-7 space-y-3">
+                    <h4 class="text-sm font-bold text-slate-900 flex items-center space-x-2">
+                        <span>📊 글로벌 & 국내 자원재생 시장 성장 전망 (2023-2030)</span>
+                    </h4>
+                    <div class="chart-container bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <canvas id="marketChart"></canvas>
+                    </div>
+                    <p class="text-[11px] text-slate-500 text-right">출처: 글로벌 폐플라스틱/자원재생 시장 보고서 재구성 (CAGR 8.1%)</p>
+                </div>
+
+                <!-- Multi-Tier Impact Interactive Tabs -->
+                <div class="lg:col-span-5 space-y-4">
+                    <h4 class="text-sm font-bold text-slate-900">💡 다차원 파급효과 (Impact Tier)</h4>
+                    
+                    <div class="flex space-x-2 border-b border-slate-200 pb-2">
+                        <button id="impact-btn-1" onclick="switchImpactTab(1)" class="impact-tab-btn text-xs font-bold px-3 py-1.5 rounded-lg bg-emerald-600 text-white">1차: 환경·탄소</button>
+                        <button id="impact-btn-2" onclick="switchImpactTab(2)" class="impact-tab-btn text-xs font-bold px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200">2차: 공급망</button>
+                        <button id="impact-btn-3" onclick="switchImpactTab(3)" class="impact-tab-btn text-xs font-bold px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200">3차: ESG 상생</button>
+                    </div>
+
+                    <div id="impact-content-box" class="p-5 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+                        <!-- Dynamically Updated by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Intellectual Property & Global Supply Chain Network -->
+        <section id="ip-supply" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8 space-y-6">
+            <div class="border-b border-slate-200 pb-4">
+                <span class="text-emerald-600 font-bold text-xs uppercase tracking-wider">SECTION 05</span>
+                <h3 class="text-xl sm:text-2xl font-bold text-slate-900 mt-1">지식재산권, 기술 인증 및 글로벌 공급망</h3>
+                <p class="text-slate-600 text-sm mt-2 leading-relaxed">
+                    본 섹션은 (주)케이제이글로벌의 진입장벽을 형성하는 등록 특허 및 수상 실적과 함께 해외법인을 필두로 한 글로벌 원자재 수급 선순환 네트워크를 보여줍니다.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- IP & Award Card -->
+                <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 space-y-4">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xl">📜</span>
+                        <h4 class="font-bold text-slate-900">지식재산권 & 인증 현황</h4>
+                    </div>
+                    <div class="space-y-3 text-xs text-slate-700">
+                        <div class="bg-white p-3 rounded-lg border border-slate-200 shadow-sm">
+                            <span class="font-bold text-emerald-700">특허 제10-2398019호</span>
+                            <p class="mt-1">건식 조건에서 광케이블/젤리케이블 불순물 및 유체역학적 유분 정밀 분리 장치 및 제어 기술</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border border-slate-200 shadow-sm">
+                            <span class="font-bold text-emerald-700">특허 제10-1728129호</span>
+                            <p class="mt-1">물리적 기계 박리를 활용한 폐케이블 유해물질 무배출 자원 회수 시스템</p>
+                        </div>
+                        <div class="bg-amber-50 p-3 rounded-lg border border-amber-200 text-amber-900 font-semibold flex items-center space-x-2">
+                            <span>🏆</span>
+                            <span>2025 에너지·친환경 기술대상 선정</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Global Supply Chain Flow Card -->
+                <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 space-y-4">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xl">🌐</span>
+                        <h4 class="font-bold text-slate-900">글로벌 원자재 공급망 순환 로드맵</h4>
+                    </div>
+                    <div class="space-y-3 text-xs">
+                        <div class="flex items-start space-x-3">
+                            <div class="bg-indigo-600 text-white font-bold rounded-full w-6 h-6 flex items-center justify-center shrink-0">1</div>
+                            <div>
+                                <strong class="text-slate-900">해외법인 스크랩 수급 네트워크 (해외법인장 전복남)</strong>
+                                <p class="text-slate-600">통신망 고도화로 발생하는 해외 통신사의 대량 폐광케이블 수급 계약 체결</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="bg-indigo-600 text-white font-bold rounded-full w-6 h-6 flex items-center justify-center shrink-0">2</div>
+                            <div>
+                                <strong class="text-slate-900">대구 현풍 공장 건식 정밀 처리</strong>
+                                <p class="text-slate-600">독자 특허 건식 에어 분리 시스템 적용 (99% 순도 구리 및 HDPE 입자화)</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="bg-indigo-600 text-white font-bold rounded-full w-6 h-6 flex items-center justify-center shrink-0">3</div>
+                            <div>
+                                <strong class="text-slate-900">글로벌 & 국내 원자재 시장 환류</strong>
+                                <p class="text-slate-600">주요 대기업 및 전선/플라스틱 제조사에 고부가가치 순환 소재 공급</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Corporate Contact & Digital Business Card -->
+        <section id="contact" class="bg-slate-900 text-white rounded-2xl p-6 sm:p-10 shadow-xl space-y-6">
+            <div class="border-b border-slate-800 pb-4">
+                <span class="text-emerald-400 font-bold text-xs uppercase tracking-wider">SECTION 06</span>
+                <h3 class="text-xl sm:text-2xl font-bold mt-1">기업 문의 및 디지털 명함 정보</h3>
+                <p class="text-slate-400 text-sm mt-2 leading-relaxed">
+                    본 섹션은 (주)케이제이글로벌과의 사업 제휴, 해외 원자재 수급 협력 및 기술 문의를 위한 공식 연락처 정보를 제공합니다. 명함 카드 내 이메일이나 전화번호를 클릭하여 간편하게 연결하거나 복사할 수 있습니다.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Digital Business Card Mockup -->
+                <div class="lg:col-span-6 bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-2xl relative space-y-4">
+                    <div class="flex justify-between items-start border-b border-slate-700 pb-4">
+                        <div class="flex items-center space-x-3">
+                            <span class="bg-emerald-600 text-white font-black text-xl px-3 py-1 rounded-md">KJ</span>
+                            <div>
+                                <div class="text-lg font-bold text-white tracking-wide">(주) KJ 글로벌</div>
+                                <div class="text-xs text-emerald-400 font-medium">친환경 원자재재생 전문기업</div>
+                            </div>
+                        </div>
+                        <span class="text-xs bg-indigo-900/80 text-indigo-300 px-2.5 py-1 rounded-full border border-indigo-700">해외법인</span>
+                    </div>
+
+                    <div class="space-y-1">
+                        <div class="text-2xl font-black text-white">전 복 남 <span class="text-sm font-normal text-slate-400">/ 해외법인장</span></div>
+                        <div class="text-xs text-slate-400 font-mono">Jun Bok Nam, Overseas Subsidiary President</div>
+                    </div>
+
+                    <div class="space-y-2 text-xs text-slate-300 pt-2 border-t border-slate-700/60">
+                        <div class="flex items-center space-x-2">
+                            <span>📍</span>
+                            <span>대구광역시 달성군 현풍읍 현풍서로 114-4</span>
+                        </div>
+                        <div class="flex flex-wrap gap-4 pt-1">
+                            <button onclick="copyToClipboard('053-267-0300', '대표 전화')" class="hover:text-emerald-400 transition flex items-center space-x-1">
+                                <span>📞</span>
+                                <span>T. 053) 267-0300</span>
+                            </button>
+                            <span class="text-slate-600">|</span>
+                            <span>F. 053) 267-0301</span>
+                        </div>
+                        <div class="flex items-center space-x-2 pt-1">
+                            <button onclick="copyToClipboard('kjglobal0300@naver.com', '이메일 주소')" class="hover:text-emerald-400 transition flex items-center space-x-1">
+                                <span>✉️</span>
+                                <span>E-mail : kjglobal0300@naver.com</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact & Partnership Information -->
+                <div class="lg:col-span-6 space-y-4 text-xs sm:text-sm text-slate-300">
+                    <h4 class="text-base font-bold text-white">🤝 비즈니스 협력 및 원자재 수급 안내</h4>
+                    <p class="leading-relaxed text-slate-300">
+                        (주)케이제이글로벌은 국내외 통신사업자, 자동차 부품 제조사, 정용 자원 재활용 파트너사와의 광범위한 ESG 상생 생태계 구축을 환영합니다.
+                    </p>
+                    <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 space-y-2">
+                        <div class="font-bold text-emerald-400">주요 협력 가능 분야:</div>
+                        <ul class="list-disc list-inside space-y-1 text-slate-300">
+                            <li>해외 통신 인프라 교체에 따른 폐광/젤리케이블 장기 공급 계약</li>
+                            <li>자동차 사출 불량품 및 복합 폐기물 위탁 재처리</li>
+                            <li>회수된 고순도 99%+ 구리 및 HDPE 재생 원자재 구매 문의</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-500 text-xs py-8 border-t border-slate-900 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+            <div>
+                <p>© 2026 (주)케이제이글로벌 (KJ Global Co., Ltd.). All rights reserved.</p>
+                <p class="text-[11px] text-slate-600 mt-1">대구광역시 달성군 현풍읍 현풍서로 114-4 | 사업자등록번호: 501-81-32154</p>
+            </div>
+            <div class="text-right">
+                <p class="text-slate-400 font-semibold">친환경 자원재생 기술 대시보드</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification for Copying -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-emerald-600 text-white text-xs font-bold px-4 py-2.5 rounded-lg shadow-xl hidden transition-all duration-300 z-50">
+        <!-- Text updated dynamically -->
+    </div>
+
+    <!-- Application JavaScript Logic -->
+    <script>
+        // Data Store for Process Steps
+        const processSteps = {
+            1: {
+                title: "STEP 01: 원자재 투입 & 물리적 피복 박리",
+                mechanism: "고온 열처리나 화학 용제 없이, 독자 정밀 기계식 박리 장치를 통해 폐광케이블, 젤리케이블 및 인서트 사출품의 피복을 물리적으로 개봉합니다.",
+                input: "폐광케이블, 폐젤리케이블, 인서트 사출 불량품",
+                output: "1차 피복 분리물 및 내부 젤리/금속 혼합 입자",
+                advantage: "고온 소각으로 인한 피복 열화 및 유해 가스 배출이 전혀 없음"
+            },
+            2: {
+                title: "STEP 02: 유체역학 에어(Air) 정밀 선별",
+                mechanism: "공기의 유체역학적 비중 차이 및 공기 흐름 제어 기술을 결합하여, 케이블 내부의 끈적이는 젤리 유분과 절연 피복, 비철금속을 입자 손실 없이 분리합니다.",
+                input: "유분 함유 혼합 입자",
+                output: "젤리 유분 완벽 분리 및 비철금속-합성수지 분리 기류",
+                advantage: "습식 세척용 화학약품 및 대량 폐수가 발생하지 않는 100% 건식 처리"
+            },
+            3: {
+                title: "STEP 03: 99%+ 고순도 구리(비철금속) 회수",
+                mechanism: "유분이 제거된 비철금속 입자에서 불순물 혼입 없이 99% 이상의 고순도 구리를 원자재급 순도로 최종 정밀 선별하여 추출합니다.",
+                input: "정밀 에어 선별된 금속 입자",
+                output: "99%+ 순도 구리 (Copper Granules)",
+                advantage: "천연 광산 채굴 대비 탄소 배출 및 에너지 소비 대폭 절감"
+            },
+            4: {
+                title: "STEP 04: 고순도 HDPE 고분자 수지 회수",
+                mechanism: "케이블 피복으로 사용된 HDPE(고밀도 폴리에틸렌) 등 고부가가치 합성수지를 열 손상 없이 세척 상태급 고순도로 분리 및 회수합니다.",
+                input: "선별된 플라스틱 입자",
+                output: "고순도 재생 HDPE 원자재",
+                advantage: "대기업 재생 플라스틱 의무 사용 비율(PCR)을 충족하는 핵심 원료 공급"
+            }
+        };
+
+        // Data Store for Multi-Tier Impact Analysis
+        const impactTiers = {
+            1: {
+                title: "1차 효과: 환경 오염 및 공정 탄소발자국 혁신적 저감",
+                badge: "🌱 환경 & 탄소 (Environmental)",
+                details: [
+                    "기존 습식 세척 공정이 유발하는 화학 폐수 처리 비용 및 수질 오염 근본적 차단",
+                    "고온 소각 공정 배출 유해가스 및 악취 방지로 탄소국경조정제도(CBAM) 규제 리스크 해소",
+                    "공정 에너지 소비 최소화로 자원재생 자체의 Lifecycle 탄소발자국 최소화"
+                ]
+            },
+            2: {
+                title: "2차 효과: 첨단 산업 핵심 비철금속 & 소재 공급망 안정화",
+                badge: "⚡ 공급망 (Supply Chain)",
+                details: [
+                    "전기차, 데이터센터, AI 인프라 확충에 따른 글로벌 구리 수요 폭증 속 순환 자원 확보",
+                    "해외 폐케이블 수급을 통한 99%+ 고순도 구리 공급으로 광산 채굴 의존도 완화",
+                    "주요 제조 대기업의 재생 플라스틱(PCR HDPE) 필수 채택 기준 완벽 충족"
+                ]
+            },
+            3: {
+                title: "3차 효과: 산업 생태계 파트너십 및 ESG 상생 모델",
+                badge: "🤝 ESG & LCA (Co-existence)",
+                details: [
+                    "통신사 및 자동차 부품사의 제조 부산물·폐기 자재 자원 순환율 100% 달성 지원",
+                    "배출 기업의 제품 생애주기평가(LCA) 수치 및 Scope 3 탄소 배출량 획기적 개선",
+                    "도시광산 자원 선순환 생태계를 통한 글로벌 지능형 재활용 패러다임 선도"
+                ]
+            }
+        };
+
+        // DOM Initialization
+        document.ready = function() {
+            renderProcessDetail(1);
+            renderImpactDetail(1);
+            initChart();
+
+            // Mobile menu toggle
+            document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+                const mobileMenu = document.getElementById('mobile-menu');
+                mobileMenu.classList.toggle('hidden');
+            });
+        };
+
+        // Corp Tab Switcher
+        function switchCorpTab(tabKey) {
+            document.querySelectorAll('.corp-tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.corp-tab-btn').forEach(btn => {
+                btn.classList.remove('bg-slate-900', 'text-white');
+                btn.classList.add('bg-slate-100', 'text-slate-700');
+            });
+
+            document.getElementById(`tab-corp-${tabKey}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`btn-corp-${tabKey}`);
+            activeBtn.classList.remove('bg-slate-100', 'text-slate-700');
+            activeBtn.classList.add('bg-slate-900', 'text-white');
+        }
+
+        // Process Step Selection
+        function selectProcessStep(stepNum) {
+            for (let i = 1; i <= 4; i++) {
+                const btn = document.getElementById(`step-btn-${i}`);
+                if (i === stepNum) {
+                    btn.className = "process-step-btn p-4 rounded-xl border-2 border-emerald-600 bg-emerald-50 text-left transition relative shadow-sm";
+                } else {
+                    btn.className = "process-step-btn p-4 rounded-xl border-2 border-slate-200 bg-slate-50 hover:bg-slate-100 text-left transition relative";
+                }
+            }
+            renderProcessDetail(stepNum);
+        }
+
+        function renderProcessDetail(stepNum) {
+            const data = processSteps[stepNum];
+            const box = document.getElementById('process-detail-box');
+            box.innerHTML = `
+                <div class="flex items-center justify-between border-b border-slate-700 pb-3">
+                    <h4 class="text-base sm:text-lg font-bold text-emerald-400">${data.title}</h4>
+                    <span class="text-xs bg-emerald-900/80 text-emerald-300 font-bold px-2.5 py-1 rounded-full border border-emerald-700">물리적 건식 공정</span>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-200 leading-relaxed">${data.mechanism}</p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs">
+                    <div class="bg-slate-800 p-3 rounded-lg border border-slate-700">
+                        <span class="text-slate-400 font-bold block mb-1">📥 주요 투입물</span>
+                        <span class="text-white font-medium">${data.input}</span>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-lg border border-slate-700">
+                        <span class="text-emerald-400 font-bold block mb-1">📤 회수 산출물</span>
+                        <span class="text-white font-medium">${data.output}</span>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-lg border border-slate-700">
+                        <span class="text-amber-400 font-bold block mb-1">⚡ 핵심 우위성</span>
+                        <span class="text-white font-medium">${data.advantage}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Matrix Table Filter
+        function filterMatrix(category) {
+            document.querySelectorAll('.matrix-filter-btn').forEach(btn => {
+                btn.classList.remove('bg-emerald-600', 'text-white');
+                btn.classList.add('bg-slate-100', 'text-slate-700');
+            });
+
+            const activeBtn = document.getElementById(`matrix-btn-${category}`);
+            activeBtn.classList.remove('bg-slate-100', 'text-slate-700');
+            activeBtn.classList.add('bg-emerald-600', 'text-white');
+
+            const rows = document.querySelectorAll('.matrix-row');
+            rows.forEach(row => {
+                if (category === 'all' || row.getAttribute('data-category') === category) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // Multi-Tier Impact Tab Switching
+        function switchImpactTab(tierNum) {
+            document.querySelectorAll('.impact-tab-btn').forEach(btn => {
+                btn.classList.remove('bg-emerald-600', 'text-white');
+                btn.classList.add('bg-slate-100', 'text-slate-700');
+            });
+
+            const activeBtn = document.getElementById(`impact-btn-${tierNum}`);
+            activeBtn.classList.remove('bg-slate-100', 'text-slate-700');
+            activeBtn.classList.add('bg-emerald-600', 'text-white');
+
+            renderImpactDetail(tierNum);
+        }
+
+        function renderImpactDetail(tierNum) {
+            const data = impactTiers[tierNum];
+            const box = document.getElementById('impact-content-box');
+            box.innerHTML = `
+                <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+                    <span class="text-xs font-bold text-emerald-700">${data.badge}</span>
+                </div>
+                <h5 class="font-bold text-slate-900 text-sm sm:text-base">${data.title}</h5>
+                <ul class="space-y-2 text-xs sm:text-sm text-slate-700">
+                    ${data.details.map(item => `<li class="flex items-start space-x-2"><span>✔</span><span>${item}</span></li>`).join('')}
+                </ul>
+            `;
+        }
+
+        // Copy to Clipboard Utility
+        function copyToClipboard(text, label) {
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.innerText = `${label} (${text})가 클립보드에 복사되었습니다.`;
+                toast.classList.remove('hidden');
+                setTimeout(() => {
+                    toast.classList.add('hidden');
+                }, 3000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+
+        // Chart.js Setup
+        function initChart() {
+            const ctx = document.getElementById('marketChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['2023년', '2025년(전망)', '2027년(전망)', '2030년(전망)'],
+                    datasets: [
+                        {
+                            label: '글로벌 자원재생 시장 (억 달러)',
+                            data: [694, 820, 980, 1200],
+                            backgroundColor: 'rgba(5, 150, 105, 0.85)',
+                            borderColor: '#059669',
+                            borderWidth: 1,
+                            borderRadius: 6,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: '국내 시장 (천억 원)',
+                            data: [19.5, 23.8, 28.5, 35.0],
+                            type: 'line',
+                            borderColor: '#1E293B',
+                            backgroundColor: '#1E293B',
+                            borderWidth: 3,
+                            tension: 0.3,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: { size: 11 },
+                                boxWidth: 12
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) label += ': ';
+                                    if (context.dataset.yAxisID === 'y') {
+                                        label += context.raw + ' 억 달러';
+                                    } else {
+                                        label += context.raw + ' 천억 원';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false }
+                        },
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: { display: true, text: '글로벌 (억 달러)', font: { size: 10 } }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            grid: { drawOnChartArea: false },
+                            title: { display: true, text: '국내 (천억 원)', font: { size: 10 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        window.onload = document.ready;
+    </script>
+</body>
+</html>
