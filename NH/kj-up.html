@@ -1,0 +1,1070 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="폐케이블과 복합 폐자원을 재생 구리와 재생 플라스틱으로 되돌리는 KJ글로벌의 기술과 사업을 소개합니다.">
+  <meta name="theme-color" content="#07141f">
+  <title>KJ글로벌 | 폐자원을 다시 산업의 원료로</title>
+  <script>document.documentElement.classList.add('js');</script>
+  <style>
+    :root {
+      --ink: #07141f;
+      --ink-2: #0c1d29;
+      --ink-3: #122a38;
+      --paper: #f4f7f6;
+      --white: #ffffff;
+      --muted: #aebdc5;
+      --muted-dark: #536774;
+      --line: rgba(255, 255, 255, .12);
+      --line-dark: rgba(7, 20, 31, .12);
+      --green: #63c64d;
+      --green-2: #87dd5e;
+      --blue: #1684d5;
+      --blue-2: #50b8f0;
+      --copper: #d88a4c;
+      --copper-2: #f4b06d;
+      --danger: #ef705f;
+      --radius-sm: 14px;
+      --radius: 24px;
+      --radius-lg: 34px;
+      --shadow: 0 22px 70px rgba(0, 0, 0, .22);
+      --max: 1200px;
+      --header-h: 72px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 16px); }
+    body {
+      margin: 0;
+      color: var(--white);
+      background: var(--ink);
+      font-family: Pretendard, "Noto Sans KR", "Apple SD Gothic Neo", Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      word-break: keep-all;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 72px;
+    }
+    body.menu-open { overflow: hidden; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    img, svg { display: block; max-width: 100%; }
+    ::selection { color: var(--ink); background: var(--green-2); }
+
+    .skip-link {
+      position: fixed;
+      left: 16px;
+      top: -80px;
+      z-index: 200;
+      padding: 12px 18px;
+      border-radius: 10px;
+      color: var(--ink);
+      background: var(--white);
+      transition: top .2s ease;
+    }
+    .skip-link:focus { top: 12px; }
+
+    .container { width: min(calc(100% - 40px), var(--max)); margin-inline: auto; }
+    .section { position: relative; padding: 84px 0; overflow: clip; }
+    .section--light { color: var(--ink); background: var(--paper); }
+    .section--soft { background: var(--ink-2); }
+    .section--line { border-top: 1px solid var(--line); }
+    .section-head { max-width: 760px; margin-bottom: 38px; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 14px;
+      color: var(--green-2);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 28px; height: 2px; background: currentColor; }
+    .section--light .eyebrow { color: #2c7a39; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { letter-spacing: -.035em; }
+    h2 { margin-bottom: 18px; font-size: clamp(2rem, 8vw, 3.8rem); line-height: 1.1; }
+    h3 { margin-bottom: 10px; font-size: 1.25rem; line-height: 1.3; }
+    .lead { margin-bottom: 0; color: var(--muted); font-size: clamp(1rem, 2.7vw, 1.18rem); }
+    .section--light .lead { color: var(--muted-dark); }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-h);
+      border-bottom: 1px solid var(--line);
+      background: rgba(7, 20, 31, .82);
+      backdrop-filter: blur(18px);
+    }
+    .header-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; min-height: 48px; }
+    .brand-mark { width: 42px; height: 42px; flex: none; filter: drop-shadow(0 8px 16px rgba(0,0,0,.22)); }
+    .brand-copy { display: grid; line-height: 1.14; }
+    .brand-copy strong { color: var(--white); font-size: .97rem; letter-spacing: -.02em; }
+    .brand-copy span { color: var(--muted); font-size: .64rem; letter-spacing: .02em; }
+    .desktop-nav { display: none; align-items: center; gap: 28px; }
+    .desktop-nav a { position: relative; color: #d9e3e8; font-size: .88rem; font-weight: 700; }
+    .desktop-nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 100%;
+      bottom: -8px;
+      height: 2px;
+      background: var(--green);
+      transition: right .22s ease;
+    }
+    .desktop-nav a:hover::after, .desktop-nav a.active::after { right: 0; }
+    .nav-cta { padding: 10px 16px; border: 1px solid rgba(99,198,77,.55); border-radius: 999px; }
+    .menu-toggle {
+      position: relative;
+      width: 48px;
+      height: 48px;
+      min-height: 48px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      color: var(--white);
+      background: rgba(255,255,255,.05);
+      cursor: pointer;
+    }
+    .menu-toggle span, .menu-toggle::before, .menu-toggle::after {
+      content: "";
+      position: absolute;
+      left: 13px;
+      width: 20px;
+      height: 2px;
+      border-radius: 3px;
+      background: currentColor;
+      transition: transform .2s ease, top .2s ease, opacity .2s ease;
+    }
+    .menu-toggle::before { top: 15px; }
+    .menu-toggle span { top: 22px; }
+    .menu-toggle::after { top: 29px; }
+    .menu-toggle[aria-expanded="true"]::before { top: 22px; transform: rotate(45deg); }
+    .menu-toggle[aria-expanded="true"] span { opacity: 0; }
+    .menu-toggle[aria-expanded="true"]::after { top: 22px; transform: rotate(-45deg); }
+    .mobile-menu {
+      position: fixed;
+      inset: var(--header-h) 0 0;
+      z-index: 90;
+      display: grid;
+      align-content: start;
+      gap: 8px;
+      padding: 24px 20px;
+      color: var(--white);
+      background: rgba(7, 20, 31, .98);
+      transform: translateX(100%);
+      opacity: 0;
+      visibility: hidden;
+      transition: transform .28s ease, opacity .28s ease, visibility .28s;
+    }
+    .mobile-menu.open { transform: none; opacity: 1; visibility: visible; }
+    .mobile-menu a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 56px;
+      padding: 8px 4px;
+      border-bottom: 1px solid var(--line);
+      font-size: 1.15rem;
+      font-weight: 750;
+    }
+    .mobile-menu a::after { content: "↗"; color: var(--green); }
+
+    .hero {
+      min-height: calc(100svh - var(--header-h));
+      display: grid;
+      align-items: center;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -3;
+      background:
+        radial-gradient(circle at 77% 35%, rgba(22,132,213,.20), transparent 26%),
+        radial-gradient(circle at 16% 68%, rgba(99,198,77,.12), transparent 30%),
+        linear-gradient(145deg, #06111a 4%, #0a1e2b 58%, #07141f 100%);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      opacity: .18;
+      background-image:
+        linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+      background-size: 54px 54px;
+      mask-image: linear-gradient(to bottom, transparent, #000 20%, #000 76%, transparent);
+    }
+    .hero-inner { display: grid; gap: 46px; padding-top: 64px; padding-bottom: 70px; }
+    .hero-copy { position: relative; z-index: 2; }
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 12px;
+      margin-bottom: 22px;
+      border: 1px solid rgba(99,198,77,.34);
+      border-radius: 999px;
+      color: #c9ffc0;
+      background: rgba(99,198,77,.08);
+      font-size: .73rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+    }
+    .hero-kicker::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 5px rgba(99,198,77,.12); }
+    .hero h1 { margin-bottom: 24px; font-size: clamp(2.7rem, 13vw, 5.6rem); line-height: 1.02; }
+    .hero h1 .line { display: block; }
+    .hero h1 .accent { color: transparent; background: linear-gradient(100deg, var(--green-2), #b7f195 38%, var(--blue-2)); background-clip: text; -webkit-background-clip: text; }
+    .hero-desc { max-width: 630px; margin-bottom: 30px; color: #b9c7ce; font-size: clamp(1rem, 3.8vw, 1.18rem); }
+    .hero-tagline { margin-bottom: 12px; color: var(--white); font-weight: 750; }
+    .button-row { display: grid; gap: 10px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 52px;
+      padding: 12px 20px;
+      border: 1px solid transparent;
+      border-radius: 14px;
+      font-weight: 800;
+      text-align: center;
+      cursor: pointer;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { color: #071109; background: var(--green-2); box-shadow: 0 12px 34px rgba(99,198,77,.2); }
+    .btn-primary:hover { background: #a1eb7b; }
+    .btn-secondary { color: var(--white); border-color: var(--line); background: rgba(255,255,255,.05); }
+    .btn-secondary:hover { border-color: rgba(255,255,255,.3); background: rgba(255,255,255,.1); }
+    .btn-arrow { font-size: 1.15em; }
+
+    .hero-visual { position: relative; min-height: 370px; display: grid; place-items: center; }
+    .cycle {
+      position: relative;
+      width: min(86vw, 420px);
+      aspect-ratio: 1;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(17,44,59,.96) 0 38%, transparent 38.5%),
+        conic-gradient(from 12deg, rgba(99,198,77,.18), rgba(22,132,213,.12), rgba(216,138,76,.18), rgba(99,198,77,.18));
+      box-shadow: inset 0 0 70px rgba(255,255,255,.03), 0 30px 80px rgba(0,0,0,.24);
+      animation: float 7s ease-in-out infinite;
+    }
+    .cycle::before, .cycle::after {
+      content: "";
+      position: absolute;
+      inset: 11%;
+      border: 1px dashed rgba(255,255,255,.18);
+      border-radius: inherit;
+      animation: spin 26s linear infinite;
+    }
+    .cycle::after { inset: 28%; border-style: solid; border-color: rgba(99,198,77,.25); animation-direction: reverse; animation-duration: 18s; }
+    .cycle-center { position: absolute; inset: 32%; display: grid; place-items: center; text-align: center; }
+    .cycle-center strong { color: var(--white); font-size: 1.05rem; letter-spacing: .04em; }
+    .cycle-center span { color: var(--muted); font-size: .72rem; }
+    .cycle-node {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      width: 86px;
+      min-height: 70px;
+      padding: 10px;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 18px;
+      color: var(--white);
+      background: rgba(6,17,26,.84);
+      box-shadow: 0 12px 30px rgba(0,0,0,.22);
+      backdrop-filter: blur(8px);
+      text-align: center;
+      font-size: .75rem;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+    .cycle-node i { display: block; width: 8px; height: 8px; margin-bottom: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 16px currentColor; }
+    .cycle-node--1 { top: -3%; left: 38%; }
+    .cycle-node--2 { top: 36%; right: -7%; }
+    .cycle-node--3 { right: 9%; bottom: 2%; }
+    .cycle-node--4 { left: 3%; bottom: 8%; }
+    .hero-proof {
+      position: absolute;
+      left: 0;
+      bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 15px;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 15px;
+      background: rgba(7,20,31,.88);
+      box-shadow: var(--shadow);
+    }
+    .hero-proof b { display: block; color: var(--copper-2); font-size: 1.1rem; }
+    .hero-proof span { color: var(--muted); font-size: .7rem; }
+
+    .intro-strip { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: rgba(255,255,255,.025); }
+    .intro-grid { display: grid; }
+    .intro-item { padding: 24px 0; border-bottom: 1px solid var(--line); }
+    .intro-item:last-child { border-bottom: 0; }
+    .intro-item span { display: block; margin-bottom: 6px; color: var(--green-2); font-size: .68rem; font-weight: 850; letter-spacing: .12em; }
+    .intro-item strong { font-size: .97rem; }
+
+    .business-grid { display: grid; gap: 14px; }
+    .material-card {
+      position: relative;
+      min-height: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px;
+      overflow: hidden;
+      border: 1px solid var(--line-dark);
+      border-radius: var(--radius);
+      background: var(--white);
+      box-shadow: 0 14px 36px rgba(7,20,31,.06);
+      transition: transform .22s ease, box-shadow .22s ease;
+    }
+    .material-card:hover { transform: translateY(-4px); box-shadow: 0 20px 44px rgba(7,20,31,.1); }
+    .material-card::after {
+      content: "";
+      position: absolute;
+      right: -56px;
+      top: -44px;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      opacity: .1;
+      background: var(--accent, var(--green));
+    }
+    .card-no { color: var(--muted-dark); font-size: .72rem; font-weight: 850; letter-spacing: .13em; }
+    .material-symbol {
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      margin: 28px 0 20px;
+      border-radius: 17px;
+      color: var(--ink);
+      background: color-mix(in srgb, var(--accent, var(--green)) 18%, white);
+      font-size: 1.45rem;
+    }
+    .material-card p { margin-bottom: 0; color: var(--muted-dark); font-size: .9rem; }
+    .material-flow { display: flex; align-items: center; gap: 9px; margin-top: 18px; color: #235e32; font-weight: 850; font-size: .84rem; }
+    .material-flow i { flex: 1; height: 1px; background: var(--line-dark); }
+
+    .stats { display: grid; gap: 1px; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--line); }
+    .stat { position: relative; padding: 30px 24px; background: var(--ink-2); }
+    .stat-value { display: block; margin-bottom: 8px; color: var(--white); font-size: clamp(2.4rem, 13vw, 4.5rem); font-weight: 900; letter-spacing: -.06em; line-height: 1; }
+    .stat:nth-child(1) .stat-value { color: var(--copper-2); }
+    .stat:nth-child(2) .stat-value { color: var(--green-2); }
+    .stat:nth-child(3) .stat-value { color: var(--blue-2); }
+    .stat strong { display: block; margin-bottom: 8px; }
+    .stat p { margin: 0; color: var(--muted); font-size: .84rem; }
+    .evidence-note { margin: 16px 0 0; color: #869aa5; font-size: .75rem; }
+
+    .process-layout { display: grid; gap: 20px; }
+    .process-nav { display: grid; gap: 8px; }
+    .process-tab {
+      width: 100%;
+      min-height: 64px;
+      display: grid;
+      grid-template-columns: 44px 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      color: var(--muted);
+      background: transparent;
+      text-align: left;
+      cursor: pointer;
+      transition: color .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .process-tab:hover, .process-tab[aria-selected="true"] { color: var(--white); border-color: rgba(99,198,77,.42); background: rgba(99,198,77,.08); }
+    .process-tab .num { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 12px; color: var(--ink); background: var(--green-2); font-size: .76rem; font-weight: 900; }
+    .process-tab .arrow { color: var(--green-2); }
+    .process-panel {
+      position: relative;
+      min-height: 410px;
+      display: grid;
+      align-content: end;
+      padding: 28px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(150deg, #102c38, #07141f 65%);
+      box-shadow: var(--shadow);
+    }
+    .process-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .34;
+      background:
+        radial-gradient(circle at 72% 26%, var(--panel-color, var(--green)) 0 2px, transparent 3px) 0 0 / 23px 23px,
+        radial-gradient(circle at 72% 26%, color-mix(in srgb, var(--panel-color, var(--green)) 30%, transparent), transparent 34%);
+      mask-image: linear-gradient(to bottom, #000, transparent 74%);
+    }
+    .process-panel > * { position: relative; z-index: 1; }
+    .process-icon { display: grid; place-items: center; width: 70px; height: 70px; margin-bottom: 24px; border: 1px solid rgba(255,255,255,.18); border-radius: 22px; background: rgba(255,255,255,.06); font-size: 2rem; }
+    .process-index { color: var(--green-2); font-size: .73rem; font-weight: 850; letter-spacing: .16em; }
+    .process-panel h3 { margin: 8px 0 10px; font-size: clamp(1.8rem, 6vw, 2.7rem); }
+    .process-panel p { max-width: 560px; margin-bottom: 0; color: var(--muted); }
+
+    .why-grid { display: grid; gap: 14px; }
+    .why-card { padding: 25px; border: 1px solid var(--line-dark); border-radius: var(--radius); background: var(--white); }
+    .why-icon { display: grid; place-items: center; width: 46px; height: 46px; margin-bottom: 22px; border-radius: 15px; color: #205d2c; background: #e2f4df; font-size: 1.2rem; }
+    .why-card p { margin-bottom: 0; color: var(--muted-dark); font-size: .9rem; }
+    .compare-band { display: grid; gap: 16px; margin-top: 24px; padding: 26px; border-radius: var(--radius); color: var(--white); background: var(--ink); }
+    .compare-label { color: var(--green-2); font-size: .72rem; font-weight: 850; letter-spacing: .12em; }
+    .compare-band strong { display: block; margin-top: 4px; font-size: 1.15rem; }
+    .compare-line { height: 1px; background: var(--line); }
+
+    .field-grid { display: grid; gap: 14px; }
+    .field-card {
+      position: relative;
+      min-height: 290px;
+      display: flex;
+      align-items: flex-end;
+      padding: 24px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, #173546, #07141f);
+    }
+    .field-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .5;
+      background:
+        linear-gradient(115deg, transparent 32%, rgba(255,255,255,.05) 33%, transparent 34%),
+        radial-gradient(circle at 72% 28%, rgba(99,198,77,.36), transparent 22%),
+        repeating-linear-gradient(0deg, rgba(255,255,255,.03) 0 1px, transparent 1px 16px);
+    }
+    .field-card:nth-child(2)::before { background: radial-gradient(circle at 30% 30%, rgba(216,138,76,.4), transparent 24%), repeating-linear-gradient(130deg, rgba(255,255,255,.04) 0 2px, transparent 2px 26px); }
+    .field-card:nth-child(3)::before { background: radial-gradient(circle at 70% 22%, rgba(22,132,213,.42), transparent 24%), repeating-radial-gradient(circle at 20% 80%, rgba(255,255,255,.04) 0 3px, transparent 4px 18px); }
+    .field-card > div { position: relative; z-index: 1; }
+    .field-card .photo-tag { display: inline-flex; padding: 5px 9px; margin-bottom: 11px; border: 1px solid rgba(255,255,255,.18); border-radius: 999px; color: var(--muted); background: rgba(7,20,31,.64); font-size: .68rem; font-weight: 750; }
+    .field-card h3 { margin-bottom: 6px; }
+    .field-card p { margin-bottom: 0; color: var(--muted); font-size: .85rem; }
+    .field-guide { margin: 18px 0 0; color: #81949f; font-size: .78rem; }
+
+    .network-wrap { display: grid; gap: 28px; }
+    .map {
+      position: relative;
+      min-height: 410px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background:
+        radial-gradient(circle at 56% 52%, rgba(22,132,213,.15), transparent 34%),
+        linear-gradient(145deg, #0d2533, #06131d);
+    }
+    .map::before {
+      content: "";
+      position: absolute;
+      inset: 10% 5%;
+      opacity: .25;
+      background-image: radial-gradient(circle, rgba(255,255,255,.65) 1px, transparent 1.6px);
+      background-size: 12px 12px;
+      mask-image: radial-gradient(ellipse at 52% 48%, #000 0 52%, transparent 72%);
+    }
+    .route { position: absolute; height: 1px; transform-origin: left center; background: linear-gradient(90deg, transparent, var(--green-2), transparent); box-shadow: 0 0 12px rgba(99,198,77,.7); }
+    .route--1 { width: 42%; left: 16%; top: 34%; transform: rotate(17deg); }
+    .route--2 { width: 37%; left: 52%; top: 52%; transform: rotate(-22deg); }
+    .route--3 { width: 31%; left: 27%; top: 68%; transform: rotate(-34deg); }
+    .map-node { position: absolute; display: grid; gap: 4px; }
+    .map-node::before { content: ""; width: 11px; height: 11px; border: 2px solid var(--ink); border-radius: 50%; background: var(--green-2); box-shadow: 0 0 0 7px rgba(99,198,77,.14), 0 0 22px rgba(99,198,77,.5); }
+    .map-node b { color: var(--white); font-size: .72rem; }
+    .map-node span { color: var(--muted); font-size: .64rem; }
+    .map-node--1 { left: 14%; top: 29%; }
+    .map-node--2 { left: 53%; top: 47%; }
+    .map-node--3 { right: 8%; top: 29%; }
+    .map-node--4 { left: 22%; bottom: 20%; }
+    .network-flow { display: grid; gap: 10px; }
+    .network-step { display: grid; grid-template-columns: 44px 1fr; gap: 13px; align-items: center; padding: 15px; border: 1px solid var(--line); border-radius: 16px; background: rgba(255,255,255,.035); }
+    .network-step b { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 13px; color: var(--ink); background: var(--green-2); font-size: .75rem; }
+    .network-step strong { display: block; font-size: .95rem; }
+    .network-step span { color: var(--muted); font-size: .78rem; }
+    .project-link { margin-top: 18px; align-self: start; }
+
+    .trust-grid { display: grid; gap: 14px; }
+    .trust-card { padding: 24px; border: 1px solid var(--line-dark); border-radius: var(--radius); background: var(--white); }
+    .trust-card small { display: block; margin-bottom: 8px; color: #2d7939; font-weight: 850; letter-spacing: .08em; }
+    .trust-card strong { display: block; margin-bottom: 8px; font-size: 1.08rem; }
+    .trust-card p { margin-bottom: 0; color: var(--muted-dark); font-size: .84rem; }
+    .trust-card--wide { border-color: rgba(99,198,77,.3); background: #eaf6e8; }
+
+    .cta-section { padding: 88px 0; background: linear-gradient(140deg, #0b2130, #07141f 58%, #0b2c25); }
+    .cta-box { position: relative; overflow: hidden; padding: 34px 22px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: rgba(255,255,255,.045); box-shadow: var(--shadow); }
+    .cta-box::after { content: ""; position: absolute; width: 280px; height: 280px; right: -130px; bottom: -150px; border-radius: 50%; background: rgba(99,198,77,.15); filter: blur(4px); }
+    .cta-title { position: relative; z-index: 1; max-width: 740px; margin-bottom: 28px; }
+    .cta-title h2 { margin-bottom: 12px; }
+    .cta-title p { color: var(--muted); }
+    .inquiry-grid { position: relative; z-index: 1; display: grid; gap: 10px; }
+    .inquiry-card {
+      min-height: 122px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      color: var(--white);
+      background: rgba(7,20,31,.48);
+      text-align: left;
+      cursor: pointer;
+      transition: background .2s ease, border-color .2s ease, transform .2s ease;
+    }
+    .inquiry-card:hover { transform: translateY(-2px); border-color: rgba(99,198,77,.4); background: rgba(99,198,77,.08); }
+    .inquiry-card strong { display: block; margin-bottom: 4px; }
+    .inquiry-card span { color: var(--muted); font-size: .78rem; }
+    .inquiry-card i { display: grid; place-items: center; width: 38px; height: 38px; flex: none; border-radius: 50%; color: var(--ink); background: var(--green-2); font-style: normal; }
+
+    .contact-layout { display: grid; gap: 36px; }
+    .contact-list { display: grid; gap: 8px; margin: 28px 0; }
+    .contact-link { display: grid; grid-template-columns: 42px 1fr; gap: 12px; align-items: center; min-height: 56px; padding: 9px 0; border-bottom: 1px solid var(--line-dark); }
+    .contact-link b { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 13px; color: #246a32; background: #e2f4df; }
+    .contact-link small { display: block; color: var(--muted-dark); }
+    .contact-link strong { overflow-wrap: anywhere; font-size: .92rem; }
+    .contact-facts { padding: 18px; border-radius: 18px; background: #e8eeec; }
+    .contact-facts p { margin-bottom: 6px; color: var(--muted-dark); font-size: .82rem; }
+    .contact-facts p:last-child { margin-bottom: 0; }
+    .contact-form { display: grid; gap: 16px; padding: 24px; border: 1px solid var(--line-dark); border-radius: var(--radius); background: var(--white); box-shadow: 0 18px 54px rgba(7,20,31,.08); }
+    .field { display: grid; gap: 7px; }
+    .field label, .fieldset-label { color: var(--ink); font-size: .8rem; font-weight: 800; }
+    .required { color: #bf4637; }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      min-height: 48px;
+      padding: 12px 13px;
+      border: 1px solid #cbd6da;
+      border-radius: 12px;
+      color: var(--ink);
+      background: #fbfcfc;
+      outline: none;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+    .field textarea { min-height: 132px; resize: vertical; }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 4px rgba(22,132,213,.12); }
+    .form-row { display: grid; gap: 16px; }
+    .form-note { margin: 0; color: var(--muted-dark); font-size: .75rem; }
+    .contact-form .btn { width: 100%; border: 0; }
+
+    .site-footer { padding: 38px 0 96px; border-top: 1px solid var(--line); background: #051019; }
+    .footer-grid { display: grid; gap: 26px; }
+    .footer-brand { max-width: 430px; }
+    .footer-brand p { margin: 15px 0 0; color: #8698a2; font-size: .82rem; }
+    .footer-meta { display: grid; gap: 6px; color: #81939d; font-size: .75rem; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 16px; color: #c0cbd0; font-size: .8rem; }
+
+    .mobile-cta {
+      position: fixed;
+      left: 10px;
+      right: 10px;
+      bottom: max(10px, env(safe-area-inset-bottom));
+      z-index: 80;
+      display: grid;
+      grid-template-columns: 1fr 1.35fr;
+      gap: 8px;
+      padding: 7px;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 17px;
+      background: rgba(7,20,31,.9);
+      box-shadow: 0 15px 45px rgba(0,0,0,.35);
+      backdrop-filter: blur(16px);
+    }
+    .mobile-cta a { min-height: 48px; display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: 12px; font-size: .82rem; font-weight: 850; }
+    .mobile-cta a:first-child { border: 1px solid var(--line); }
+    .mobile-cta a:last-child { color: var(--ink); background: var(--green-2); }
+
+    .js .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .js .reveal.visible { opacity: 1; transform: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+    @media (min-width: 560px) {
+      .button-row { display: flex; flex-wrap: wrap; }
+      .btn { width: auto; }
+      .stats { grid-template-columns: repeat(3, 1fr); }
+      .form-row { grid-template-columns: 1fr 1fr; }
+      .inquiry-grid { grid-template-columns: repeat(3, 1fr); }
+      .inquiry-card { min-height: 178px; align-items: flex-start; flex-direction: column; }
+    }
+
+    @media (min-width: 768px) {
+      :root { --header-h: 80px; }
+      body { padding-bottom: 0; }
+      .container { width: min(calc(100% - 72px), var(--max)); }
+      .section { padding: 118px 0; }
+      .desktop-nav { display: flex; }
+      .menu-toggle, .mobile-menu { display: none; }
+      .brand-mark { width: 48px; height: 48px; }
+      .brand-copy strong { font-size: 1.06rem; }
+      .brand-copy span { font-size: .69rem; }
+      .hero-inner { grid-template-columns: minmax(0, 1.12fr) minmax(360px, .88fr); align-items: center; padding-top: 78px; padding-bottom: 88px; }
+      .hero h1 { font-size: clamp(4.5rem, 7.1vw, 6.5rem); }
+      .hero-visual { min-height: 520px; }
+      .cycle { width: min(39vw, 470px); }
+      .intro-grid { grid-template-columns: repeat(3, 1fr); }
+      .intro-item { padding: 28px; border-right: 1px solid var(--line); border-bottom: 0; }
+      .intro-item:first-child { padding-left: 0; }
+      .intro-item:last-child { border-right: 0; }
+      .business-grid { grid-template-columns: repeat(2, 1fr); }
+      .material-card { min-height: 300px; padding: 30px; }
+      .process-layout { grid-template-columns: minmax(280px, .72fr) minmax(0, 1.28fr); align-items: stretch; gap: 28px; }
+      .process-panel { min-height: 500px; padding: 42px; }
+      .why-grid { grid-template-columns: repeat(2, 1fr); }
+      .compare-band { grid-template-columns: 1fr auto 1fr; align-items: center; }
+      .compare-line { width: 1px; height: 54px; }
+      .field-grid { grid-template-columns: 1.3fr .9fr; grid-template-rows: 1fr 1fr; }
+      .field-card:first-child { grid-row: 1 / 3; min-height: 620px; }
+      .field-card:not(:first-child) { min-height: 300px; }
+      .network-wrap { grid-template-columns: 1.3fr .7fr; align-items: center; }
+      .map { min-height: 560px; }
+      .trust-grid { grid-template-columns: repeat(3, 1fr); }
+      .trust-card--wide { grid-column: span 2; }
+      .cta-box { padding: 52px; }
+      .contact-layout { grid-template-columns: .8fr 1.2fr; align-items: start; }
+      .contact-form { padding: 34px; }
+      .footer-grid { grid-template-columns: 1fr auto; align-items: end; }
+      .footer-meta { text-align: right; }
+      .footer-links { justify-content: flex-end; }
+      .mobile-cta { display: none; }
+      .site-footer { padding-bottom: 48px; }
+    }
+
+    @media (min-width: 1060px) {
+      .business-grid { grid-template-columns: repeat(4, 1fr); }
+      .why-grid { grid-template-columns: repeat(4, 1fr); }
+      .material-card { min-height: 330px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .js .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 바로가기</a>
+
+  <header class="site-header" aria-label="사이트 헤더">
+    <div class="container header-inner">
+      <a class="brand" href="#home" aria-label="KJ글로벌 홈">
+        <svg class="brand-mark" viewBox="0 0 64 64" role="img" aria-label="KJ글로벌 로고">
+          <defs>
+            <linearGradient id="kjBlue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#1684d5"/><stop offset="1" stop-color="#0756a4"/></linearGradient>
+            <linearGradient id="kjGreen" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8be05f"/><stop offset="1" stop-color="#3aa63e"/></linearGradient>
+          </defs>
+          <circle cx="32" cy="32" r="27" fill="url(#kjBlue)"/>
+          <path d="M5 37C17 28 33 28 57 40c-14 1-27 8-42 0-4-2-7-3-10-3Z" fill="url(#kjGreen)"/>
+          <text x="32" y="38" fill="#fff" text-anchor="middle" font-size="24" font-weight="900" font-family="Arial, sans-serif">KJ</text>
+        </svg>
+        <span class="brand-copy">
+          <strong>(주) KJ글로벌</strong>
+          <span>친환경 원자재재생 전문기업</span>
+        </span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="주요 메뉴">
+        <a href="#business">사업</a>
+        <a href="#technology">기술</a>
+        <a href="#why-kj">Why KJ</a>
+        <a href="#global">Global</a>
+        <a class="nav-cta" href="#contact">문의</a>
+      </nav>
+
+      <button id="menuToggle" class="menu-toggle" type="button" aria-controls="mobileMenu" aria-expanded="false" aria-label="메뉴 열기"><span></span></button>
+    </div>
+  </header>
+
+  <nav id="mobileMenu" class="mobile-menu" aria-label="모바일 메뉴" aria-hidden="true">
+    <a href="#business">사업</a>
+    <a href="#technology">기술</a>
+    <a href="#why-kj">Why KJ</a>
+    <a href="#global">Global Network</a>
+    <a href="#contact">사업 문의</a>
+  </nav>
+
+  <main id="main">
+    <section id="home" class="section hero" aria-labelledby="heroTitle">
+      <div class="container hero-inner">
+        <div class="hero-copy reveal">
+          <span class="hero-kicker">WASTE TO RESOURCE · KJ GLOBAL</span>
+          <h1 id="heroTitle">
+            <span class="line">버려지는 자원을</span>
+            <span class="line accent">다시 산업의 원료로.</span>
+          </h1>
+          <p class="hero-tagline">사람과 함께,<br>세계로 나아갑니다.</p>
+          <p class="hero-desc">KJ글로벌은 폐케이블과 복합 폐자원을 물리적으로 분리·선별하여 재생 구리와 재생 플라스틱으로 되돌립니다.</p>
+          <div class="button-row">
+            <a class="btn btn-primary" href="#contact">사업·원자재 문의 <span class="btn-arrow">↗</span></a>
+            <a class="btn btn-secondary" href="#technology">KJ 기술 보기 <span class="btn-arrow">↓</span></a>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal" aria-label="폐자원 순환 공정 개념도">
+          <div class="cycle">
+            <div class="cycle-center"><div><strong>CIRCULAR<br>VALUE</strong><br><span>자원의 가치를 잇다</span></div></div>
+            <div class="cycle-node cycle-node--1"><i></i>폐자원<br>수급</div>
+            <div class="cycle-node cycle-node--2"><i></i>물리<br>분리</div>
+            <div class="cycle-node cycle-node--3"><i></i>정밀<br>선별</div>
+            <div class="cycle-node cycle-node--4"><i></i>재생원료<br>공급</div>
+          </div>
+          <div class="hero-proof"><span>OUTPUT</span><div><b>Cu · HDPE</b><span>산업에 다시 투입되는 원료</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="intro-strip" aria-label="KJ글로벌 사업 요약">
+      <div class="container intro-grid">
+        <div class="intro-item"><span>01 · SOURCE</span><strong>국내외 폐케이블·복합 폐자원 수급</strong></div>
+        <div class="intro-item"><span>02 · PROCESS</span><strong>건식 물리 분리와 Air 정밀 선별</strong></div>
+        <div class="intro-item"><span>03 · SUPPLY</span><strong>재생 구리·플라스틱 원료 공급</strong></div>
+      </div>
+    </aside>
+
+    <section id="business" class="section section--light" aria-labelledby="businessTitle">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">What We Do</p>
+          <h2 id="businessTitle">폐기물을 처리하는 것이 아니라<br>새로운 원료를 만듭니다.</h2>
+          <p class="lead">서로 다른 소재가 얽힌 폐자원을 분리하고, 산업에 다시 사용할 수 있는 원료의 형태로 연결합니다.</p>
+        </header>
+
+        <div class="business-grid">
+          <article class="material-card reveal" style="--accent:#d88a4c">
+            <span class="card-no">MATERIAL 01</span>
+            <div><div class="material-symbol" aria-hidden="true">◉</div><h3>폐케이블</h3><p>피복과 금속이 결합된 폐케이블을 물리적으로 분리·선별합니다.</p></div>
+            <div class="material-flow"><span>폐케이블</span><i></i><span>재생 구리</span></div>
+          </article>
+          <article class="material-card reveal" style="--accent:#1684d5">
+            <span class="card-no">MATERIAL 02</span>
+            <div><div class="material-symbol" aria-hidden="true">≈</div><h3>젤리케이블</h3><p>복합 상태의 케이블에서 비철금속을 회수하는 공정을 적용합니다.</p></div>
+            <div class="material-flow"><span>젤리케이블</span><i></i><span>비철금속</span></div>
+          </article>
+          <article class="material-card reveal" style="--accent:#63c64d">
+            <span class="card-no">MATERIAL 03</span>
+            <div><div class="material-symbol" aria-hidden="true">◇</div><h3>금속·플라스틱 복합재</h3><p>소재 특성의 차이를 활용해 금속과 비금속 자원을 나눕니다.</p></div>
+            <div class="material-flow"><span>복합재</span><i></i><span>소재별 분리</span></div>
+          </article>
+          <article class="material-card reveal" style="--accent:#46aa90">
+            <span class="card-no">MATERIAL 04</span>
+            <div><div class="material-symbol" aria-hidden="true">♻</div><h3>폐플라스틱</h3><p>회수된 플라스틱을 선별해 재생원료로 다시 연결합니다.</p></div>
+            <div class="material-flow"><span>폐플라스틱</span><i></i><span>재생 플라스틱</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--soft" aria-labelledby="numbersTitle">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">Core Numbers</p>
+          <h2 id="numbersTitle">기술을 설명하는<br>세 가지 기준.</h2>
+          <p class="lead">많은 숫자보다 사업 파트너가 먼저 확인해야 할 핵심 지표에 집중했습니다.</p>
+        </header>
+        <div class="stats reveal">
+          <article class="stat"><span class="stat-value" data-count="99">99%+</span><strong>고순도 구리 선별</strong><p>기존 기술자료에 표기된 구리 순도 기준</p></article>
+          <article class="stat"><span class="stat-value">ZERO</span><strong>폐수 없는 건식 공정</strong><p>기존 기술자료에 명시된 적용 공정 기준</p></article>
+          <article class="stat"><span class="stat-value">2 PATENTS</span><strong>등록 특허 기술</strong><p>기존 기술자료 표기 특허 2건 기준</p></article>
+        </div>
+        <p class="evidence-note">※ 세부 처리 조건, 회수율, 제품 사양은 원료 상태와 적용 공정에 따라 달라질 수 있습니다. 사업 검토 시 기술자료와 시험 기준을 함께 확인해 주세요.</p>
+      </div>
+    </section>
+
+    <section id="technology" class="section" aria-labelledby="technologyTitle">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">Technology</p>
+          <h2 id="technologyTitle">투입부터 원료 회수까지,<br>한눈에 보이는 공정.</h2>
+          <p class="lead">물을 사용하는 복잡한 설명 대신, KJ글로벌의 핵심 물리 분리 과정을 네 단계로 보여드립니다.</p>
+        </header>
+
+        <div class="process-layout reveal">
+          <div class="process-nav" role="tablist" aria-label="기술 공정 단계">
+            <button class="process-tab" type="button" role="tab" aria-selected="true" data-step="0"><span class="num">01</span><strong>폐자원 투입</strong><span class="arrow">→</span></button>
+            <button class="process-tab" type="button" role="tab" aria-selected="false" data-step="1"><span class="num">02</span><strong>물리적 분리</strong><span class="arrow">→</span></button>
+            <button class="process-tab" type="button" role="tab" aria-selected="false" data-step="2"><span class="num">03</span><strong>Air 정밀 선별</strong><span class="arrow">→</span></button>
+            <button class="process-tab" type="button" role="tab" aria-selected="false" data-step="3"><span class="num">04</span><strong>재생원료 회수</strong><span class="arrow">→</span></button>
+          </div>
+          <article id="processPanel" class="process-panel" role="tabpanel" aria-live="polite">
+            <div id="processIcon" class="process-icon" aria-hidden="true">◉</div>
+            <span id="processIndex" class="process-index">STEP 01 · INPUT</span>
+            <h3 id="processTitle">폐케이블·복합 폐자원 투입</h3>
+            <p id="processDescription">원료의 종류와 상태를 확인하고, 공정에 맞는 전처리 기준을 적용해 투입합니다.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="why-kj" class="section section--light" aria-labelledby="whyTitle">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">Why KJ</p>
+          <h2 id="whyTitle">버리는 방식에서<br>가치를 보존하는 방식으로.</h2>
+          <p class="lead">KJ글로벌은 소재를 태워 없애기보다 가능한 형태로 분리하고 회수하는 데 집중합니다.</p>
+        </header>
+
+        <div class="why-grid">
+          <article class="why-card reveal"><div class="why-icon">△</div><h3>건식 물리 분리</h3><p>화학약품 의존도를 낮추고 소재의 물리적 특성을 활용합니다.</p></article>
+          <article class="why-card reveal"><div class="why-icon">○</div><h3>폐수 발생 저감</h3><p>물 사용 공정을 줄여 적용 공정의 폐수 부담을 낮춥니다.</p></article>
+          <article class="why-card reveal"><div class="why-icon">↺</div><h3>소재 가치 보존</h3><p>단순 폐기보다 금속과 플라스틱의 재사용 가능성을 높입니다.</p></article>
+          <article class="why-card reveal"><div class="why-icon">◎</div><h3>고순도 선별</h3><p>금속과 비금속을 정밀하게 나눠 원료의 활용 가치를 높입니다.</p></article>
+        </div>
+
+        <div class="compare-band reveal" aria-label="기존 처리 방식과 KJ 공정 방향 비교">
+          <div><span class="compare-label">BEFORE</span><strong>소각·습식 처리 중심</strong></div>
+          <div class="compare-line"></div>
+          <div><span class="compare-label">KJ DIRECTION</span><strong>건식 분리·원료 회수 중심</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="field" class="section" aria-labelledby="fieldTitle">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">From the Field</p>
+          <h2 id="fieldTitle">그래픽보다 강한 증거는<br>실제 현장입니다.</h2>
+          <p class="lead">사업장, 설비, 원료, 산출물의 실제 모습을 같은 시각 체계 안에서 보여줄 수 있도록 현장 콘텐츠 영역을 구성했습니다.</p>
+        </header>
+
+        <div class="field-grid">
+          <article class="field-card reveal"><div><span class="photo-tag">PRIMARY VISUAL · 현장사진 영역</span><h3>현풍 사업장과 핵심 설비</h3><p>외관 또는 공장 전경 사진을 우선 배치하는 대표 영역</p></div></article>
+          <article class="field-card reveal"><div><span class="photo-tag">PROCESS · 현장사진 영역</span><h3>공정과 작업 과정</h3><p>투입부터 선별까지 실제 작업 흐름을 보여주는 영역</p></div></article>
+          <article class="field-card reveal"><div><span class="photo-tag">OUTPUT · 현장사진 영역</span><h3>회수된 재생 원료</h3><p>구리와 재생 플라스틱의 상태·품질을 보여주는 영역</p></div></article>
+        </div>
+        <p class="field-guide">현재 버전은 실제 현장사진의 촬영·게시 승인이 완료되면 같은 비율의 이미지로 즉시 교체할 수 있도록 구성했습니다.</p>
+      </div>
+    </section>
+
+    <section id="global" class="section section--soft section--line" aria-labelledby="globalTitle">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">GLOBAL NETWORK</p>
+          <h2 id="globalTitle">사람과 함께,<br>세계로 나아갑니다.</h2>
+          <p class="lead">원자재를 찾는 곳에서 재생 원료가 다시 산업에 쓰이는 곳까지, KJ글로벌은 자원의 이동과 가치를 연결합니다.</p>
+        </header>
+
+        <div class="network-wrap">
+          <div class="map reveal" aria-label="글로벌 원자재 수급 및 공급 네트워크 개념도">
+            <i class="route route--1"></i><i class="route route--2"></i><i class="route route--3"></i>
+            <div class="map-node map-node--1"><b>GLOBAL</b><span>원자재 발굴</span></div>
+            <div class="map-node map-node--2"><b>DAEGU</b><span>재생·선별</span></div>
+            <div class="map-node map-node--3"><b>PARTNER</b><span>제조 공급</span></div>
+            <div class="map-node map-node--4"><b>NETWORK</b><span>사업 협력</span></div>
+          </div>
+          <div class="network-flow reveal">
+            <div class="network-step"><b>01</b><div><strong>해외 원자재 발굴</strong><span>공급 파트너와 원료 수급 기회 연결</span></div></div>
+            <div class="network-step"><b>02</b><div><strong>국내 수급·재생</strong><span>원료 특성에 맞는 물리 분리와 선별</span></div></div>
+            <div class="network-step"><b>03</b><div><strong>고부가가치 원료 생산</strong><span>재생 구리와 플라스틱으로 가치 회복</span></div></div>
+            <div class="network-step"><b>04</b><div><strong>국내외 제조 공급</strong><span>산업에 다시 투입되는 순환 구조 완성</span></div></div>
+            <a class="btn btn-secondary project-link" href="./NH_Recycling.html">NH Recycling 프로젝트 보기 <span>↗</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--light" aria-labelledby="trustTitle">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">Trust & Facts</p>
+          <h2 id="trustTitle">확인할 수 있는 정보로<br>신뢰를 쌓습니다.</h2>
+          <p class="lead">법인 기본정보는 제공된 사업자등록증을 기준으로 정리했고, 기술 지표는 기존 기술자료의 표기를 구분해 표시했습니다.</p>
+        </header>
+        <div class="trust-grid">
+          <article class="trust-card trust-card--wide reveal"><small>COMPANY</small><strong>주식회사 케이제이글로벌</strong><p>대표자 김석수 · 사업자등록번호 501-81-32154 · 개업연월일 2025.08.19</p></article>
+          <article class="trust-card reveal"><small>BUSINESS</small><strong>제조업 · 도매</strong><p>금속 및 비철금속, 무역을 포함한 등록 사업 기준</p></article>
+          <article class="trust-card reveal"><small>PATENT 01</small><strong>제10-2398019호</strong><p>기존 기술자료에 기재된 등록 특허번호</p></article>
+          <article class="trust-card reveal"><small>PATENT 02</small><strong>제10-1728129호</strong><p>기존 기술자료에 기재된 등록 특허번호</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section" aria-labelledby="partnershipTitle">
+      <div class="container">
+        <div class="cta-box reveal">
+          <header class="cta-title">
+            <p class="eyebrow">Partnership</p>
+            <h2 id="partnershipTitle">KJ글로벌과 함께<br>자원의 새로운 가치를 만드세요.</h2>
+            <p>방문 목적을 선택하면 문의 유형이 자동으로 지정됩니다.</p>
+          </header>
+          <div class="inquiry-grid">
+            <button class="inquiry-card" type="button" data-inquiry="원자재 공급"><div><strong>원자재 공급</strong><span>폐케이블·스크랩·복합 폐자원 상담</span></div><i>↗</i></button>
+            <button class="inquiry-card" type="button" data-inquiry="재생원료 구매"><div><strong>재생원료 구매</strong><span>구리·재생 플라스틱 구매 상담</span></div><i>↗</i></button>
+            <button class="inquiry-card" type="button" data-inquiry="사업 제휴"><div><strong>사업 제휴</strong><span>국내외 수급·기술·설비 협력</span></div><i>↗</i></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section section--light" aria-labelledby="contactTitle">
+      <div class="container contact-layout">
+        <div class="reveal">
+          <p class="eyebrow">Contact</p>
+          <h2 id="contactTitle">사업의 가능성을<br>함께 이야기해 주세요.</h2>
+          <p class="lead">원료 종류, 예상 물량, 필요한 재생원료 또는 협력 내용을 알려주시면 담당자가 확인합니다.</p>
+
+          <div class="contact-list">
+            <a class="contact-link" href="tel:053-267-0300"><b>☎</b><span><small>대표전화</small><strong>053-267-0300</strong></span></a>
+            <a class="contact-link" href="mailto:kjglobal0300@naver.com"><b>✉</b><span><small>이메일</small><strong>kjglobal0300@naver.com</strong></span></a>
+            <div class="contact-link"><b>⌖</b><span><small>사업장</small><strong>대구광역시 달성군 현풍읍 현풍서로 114-4</strong></span></div>
+          </div>
+
+          <div class="contact-facts">
+            <p><strong>법인명</strong> 주식회사 케이제이글로벌</p>
+            <p><strong>대표자</strong> 김석수</p>
+            <p><strong>사업자등록번호</strong> 501-81-32154</p>
+          </div>
+        </div>
+
+        <form id="contactForm" class="contact-form reveal">
+          <div class="field">
+            <label for="inquiryType">문의 유형 <span class="required">*</span></label>
+            <select id="inquiryType" name="inquiryType" required>
+              <option value="">선택해 주세요</option>
+              <option value="원자재 공급">원자재 공급</option>
+              <option value="재생원료 구매">재생원료 구매</option>
+              <option value="사업 제휴">사업 제휴</option>
+              <option value="기타 문의">기타 문의</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="field"><label for="company">회사명 <span class="required">*</span></label><input id="company" name="company" autocomplete="organization" required></div>
+            <div class="field"><label for="name">담당자명 <span class="required">*</span></label><input id="name" name="name" autocomplete="name" required></div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label for="phone">연락처</label><input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel"></div>
+            <div class="field"><label for="email">이메일 <span class="required">*</span></label><input id="email" name="email" type="email" autocomplete="email" required></div>
+          </div>
+          <div class="field"><label for="message">문의 내용 <span class="required">*</span></label><textarea id="message" name="message" required placeholder="원료 종류, 예상 물량, 필요 사양 또는 협력 내용을 적어주세요."></textarea></div>
+          <p class="form-note">작성한 내용은 서버에 저장되지 않으며, 제출하면 사용 중인 이메일 프로그램으로 연결됩니다.</p>
+          <button class="btn btn-primary" type="submit">이메일로 문의 보내기 <span>↗</span></button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="#home" aria-label="KJ글로벌 홈으로 이동">
+          <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="27" fill="#1684d5"/><path d="M5 37C17 28 33 28 57 40c-14 1-27 8-42 0-4-2-7-3-10-3Z" fill="#63c64d"/><text x="32" y="38" fill="#fff" text-anchor="middle" font-size="24" font-weight="900" font-family="Arial, sans-serif">KJ</text></svg>
+          <span class="brand-copy"><strong>(주) KJ글로벌</strong><span>친환경 원자재재생 전문기업</span></span>
+        </a>
+        <p>폐자원의 가능성을 발견하고, 다시 산업의 원료로 연결합니다.</p>
+      </div>
+      <div class="footer-meta">
+        <div class="footer-links"><a href="#business">사업</a><a href="#technology">기술</a><a href="#global">Global</a><a href="#contact">문의</a></div>
+        <span>대구광역시 달성군 현풍읍 현풍서로 114-4</span>
+        <span>© 2026 KJ Global Co., Ltd. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="mobile-cta" aria-label="빠른 문의">
+    <a href="tel:053-267-0300">☎ 전화 문의</a>
+    <a href="#contact">✉ 사업 문의</a>
+  </div>
+
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    function setMenu(open) {
+      menuToggle.setAttribute('aria-expanded', String(open));
+      menuToggle.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기');
+      mobileMenu.setAttribute('aria-hidden', String(!open));
+      mobileMenu.classList.toggle('open', open);
+      document.body.classList.toggle('menu-open', open);
+    }
+
+    menuToggle.addEventListener('click', () => setMenu(menuToggle.getAttribute('aria-expanded') !== 'true'));
+    mobileMenu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMenu(false)));
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setMenu(false);
+    });
+
+    const processData = [
+      { icon: '◉', index: 'STEP 01 · INPUT', title: '폐케이블·복합 폐자원 투입', description: '원료의 종류와 상태를 확인하고, 공정에 맞는 전처리 기준을 적용해 투입합니다.', color: '#63c64d' },
+      { icon: '◇', index: 'STEP 02 · SEPARATION', title: '소재 특성에 따른 물리적 분리', description: '파쇄와 물리적 방식을 통해 금속과 비금속 소재가 분리될 수 있는 상태를 만듭니다.', color: '#1684d5' },
+      { icon: '≈', index: 'STEP 03 · AIR SORTING', title: 'Air 정밀 선별', description: '공기 흐름과 소재별 특성 차이를 활용해 금속과 플라스틱의 분리 정밀도를 높입니다.', color: '#50b8f0' },
+      { icon: '↺', index: 'STEP 04 · OUTPUT', title: '구리·재생 플라스틱 회수', description: '선별된 소재를 산업에 다시 투입할 수 있는 재생원료의 형태로 회수합니다.', color: '#d88a4c' }
+    ];
+
+    const processPanel = document.getElementById('processPanel');
+    const processIcon = document.getElementById('processIcon');
+    const processIndex = document.getElementById('processIndex');
+    const processTitle = document.getElementById('processTitle');
+    const processDescription = document.getElementById('processDescription');
+    const processTabs = [...document.querySelectorAll('.process-tab')];
+
+    function showProcess(index) {
+      const step = processData[index];
+      processTabs.forEach((tab, tabIndex) => tab.setAttribute('aria-selected', String(tabIndex === index)));
+      processIcon.textContent = step.icon;
+      processIndex.textContent = step.index;
+      processTitle.textContent = step.title;
+      processDescription.textContent = step.description;
+      processPanel.style.setProperty('--panel-color', step.color);
+    }
+
+    processTabs.forEach((tab) => tab.addEventListener('click', () => showProcess(Number(tab.dataset.step))));
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: .12 });
+    document.querySelectorAll('.reveal').forEach((element) => revealObserver.observe(element));
+
+    const sections = [...document.querySelectorAll('main section[id]')];
+    const navLinks = [...document.querySelectorAll('.desktop-nav a[href^="#"]')];
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach((link) => link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`));
+      });
+    }, { rootMargin: '-35% 0px -55% 0px' });
+    sections.forEach((section) => navObserver.observe(section));
+
+    const inquirySelect = document.getElementById('inquiryType');
+    document.querySelectorAll('[data-inquiry]').forEach((button) => {
+      button.addEventListener('click', () => {
+        inquirySelect.value = button.dataset.inquiry;
+        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        window.setTimeout(() => inquirySelect.focus(), 550);
+      });
+    });
+
+    document.getElementById('contactForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      const type = data.get('inquiryType');
+      const subject = encodeURIComponent(`[KJ글로벌 ${type}] ${data.get('company')} / ${data.get('name')}`);
+      const body = encodeURIComponent(
+        `문의 유형: ${type}\n회사명: ${data.get('company')}\n담당자명: ${data.get('name')}\n연락처: ${data.get('phone') || '-'}\n회신 이메일: ${data.get('email')}\n\n문의 내용:\n${data.get('message')}`
+      );
+      location.href = `mailto:kjglobal0300@naver.com?subject=${subject}&body=${body}`;
+    });
+  </script>
+</body>
+</html>
